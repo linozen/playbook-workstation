@@ -1,0 +1,7 @@
+[target]
+192.168.0.137
+# 127.0.0.1 ansible_connection=local
+
+[all:vars]
+remote_user=lino
+ansible_python_interpreter=/usr/bin/python3

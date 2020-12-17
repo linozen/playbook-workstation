@@ -1,0 +1,154 @@
+---
+- name: Update packages
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install base packages
+  become: yes
+  apt:
+    pkg:
+      - git
+      - firefox-esr
+      - webext-browserpass
+      - webext-debianbuttons
+      - webext-treestyletab
+      - webext-ublock-origin-firefox
+      - ansible
+      - locales
+      - build-essential
+      - acl
+      - ntp
+      - htop
+      - cifs-utils
+      - nfs-common
+      - libnfs-utils
+      - smbclient
+      - cifs-utils
+      - net-tools
+      - fish
+      - fzf
+      - exa
+      - curl
+      - make
+      - wget
+      - rsync
+      - gnupg2
+      - gnutls-dev
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - libncurses5-dev
+      - libncursesw5-dev
+      - libssl-dev
+      - libacl1-dev
+      - libacl1
+      - openssh-client
+      - cron
+      - borgbackup
+      - borgmatic
+      - llvm
+      - xz-utils
+      - tk-dev
+      - flatpak
+      - syncthing
+      - syncthing-gtk
+      - vlc
+      - qemu-system
+      - libvirt-clients
+      - libvirt-daemon-system
+      - virt-manager
+      - docker.io
+      - docker-clean
+      - docker-compose
+      - libreoffice
+      - pass
+      - apparmor-utils
+      - apparmor-profiles
+      - apparmor-profiles-extra
+      - auditd
+      - audispd-plugins
+      - ufw
+
+- name: remove unnecessary packages
+  become: yes
+  apt: pkg={{item}} state=absent
+  with_items:
+    - gnome-games
+    - rhythmbox
+    - xterm
+    - mlterm
+    - mlterm-tiny
+    - fcitx
+    - fcitx-table
+    - fcitx-data
+    - fcitx-modules
+    - fcitx-bin
+    - thunderbird
+    - hdate
+    - hdate-applet
+    - xiterm+thai
+    - khmerconverter
+    - anthy
+    - kasumi
+    - goldendict
+    - uim-mozc
+    - mozc-utils
+    - mozc-data
+    - mozc-server
+    - fortune-mod
+
+- name: Remove useless packages from the cache
+  become: yes
+  apt:
+    autoclean: yes
+
+- name: Remove dependencies that are no longer required
+  become: yes
+  apt:
+    autoremove: yes
+
+- name: copy syncthing service to systemd directory
+  become: yes
+  copy:
+    src: syncthing.service
+    dest: "/etc/systemd/user/syncthing.service"
+
+- name: Allow synchting traffic
+  become: yes
+  shell: "ufw allow syncthing"
+
+- name: enable syncthing service
+  service:
+    name: syncthing
+    enabled: yes
+    state: started
+    user: yes
+
+- git_config:
+    name: user.email
+    scope: global
+    value: "linus@sehn.tech"
+
+- git_config:
+    name: user.name
+    scope: global
+    value: "linozen"
+
+- name: copy extractor.sh
+  copy:
+    src: extractor.sh
+    dest: "/home/lino/Downloads/extractor.sh"
+    mode: 0755
+
+- name: copy dotter.sh
+  copy:
+    src: linker.sh
+    dest: "/home/lino/Downloads/linker.sh"
+    mode: 0755
+
+- name: run extractor and connect the dots
+  pause:
+    prompt: "go to ~/Downloads and run the provided scripts"
