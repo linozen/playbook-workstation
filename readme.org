@@ -1,0 +1,40 @@
+#+title: Ansible Playbook for Debian 10 Workstation
+
+A simply playbook that sets up my Debian 10 workstation just the way I like it.
+
+Simply comment out the roles which are unnecessary for your use case in
+=site.yml=.
+
+install =openssh= on target and you're ready to rumble.
+
+* Work in progress
+** DONE Gnome-related
+*** DONE Desktop customization
+**** [X] Keyboard Shortcuts
+**** [X] tar theme and icons to unclutter repo
+*** [X] Tilix
+** DONE Doom Emacs
+*** [X] config
+** DONE Programming Languages
+*** [X] Scheme
+*** [X] Python
+**** [ ] Install pyenv virtualenv
+*** [X] Go
+*** [X] JavaScript
+** DONE Docker
+** DONE Fish Shell
+** DONE Browsers
+*** [X] Firefox
+*** [X] Chromium
+** DONE Educational Software
+*** DONE Anki
+*** DONE Zotero
+** DONE Extras
+** DONE Mounts
+** DONE Backup & Sync
+*** DONE Syncthing
+*** DONE =borg=
+** TODO Hardening
+*** DONE Mullvad VPN
+*** TODO Create AppArmor profiles for all network-enabled apps
+*** TODO Go through suggestions in [[https://www.kuketz-blog.de/sicheres-desktop-system-linux-haerten-teil1/][this article]] and [[https://pvera.net/posts/apparmor-firejail-sandboxing/][this one]]

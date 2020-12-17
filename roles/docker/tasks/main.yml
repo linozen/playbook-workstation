@@ -1,0 +1,86 @@
+---
+- name: Ensure old versions of Docker are not installed.
+  become: yes
+  package:
+    name:
+      - docker
+      - docker-engine
+    state: absent
+
+- name: Ensure dependencies are installed.
+  become: yes
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+      - gnupg2
+    state: present
+
+- name: Add Docker apt key.
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  register: add_repository_key
+
+- name: Add Docker repository.
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+    state: present
+    update_cache: true
+
+- name: update
+  become: yes
+  shell: "sudo apt-get update"
+
+- name: reboot & turn off VPN
+  pause:
+    prompt: "You might need to reboot and turn off your VPN for the next commands to work"
+
+- name: install docker
+  become: yes
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Ensure Docker is started and enabled at boot.
+  become: yes
+  service:
+    name: docker
+    state: "started"
+    enabled: "true"
+
+- name: add users to docker group
+  become: yes
+  user:
+    name: "lino"
+    groups: "docker"
+    append: "yes"
+
+- name: Check current docker-compose version.
+  command: docker-compose --version
+  register: docker_compose_current_version
+  changed_when: false
+  failed_when: false
+
+- name: Delete existing docker-compose version if it's different.
+  become: yes
+  file:
+    path: "{{ docker_compose_path }}"
+    state: absent
+  when: >
+    docker_compose_current_version.stdout is defined
+    and docker_compose_version not in docker_compose_current_version.stdout
+
+- name: Install docker-compose
+  become: yes
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+    dest: "{{ docker_compose_path }}"
+    mode: 0755

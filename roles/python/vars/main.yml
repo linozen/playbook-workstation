@@ -1,0 +1,5 @@
+---
+pyenv_root: "/home/lino/.pyenv"
+pyenv_repo: https://github.com/pyenv/pyenv
+pyenv_version: HEAD
+pyenv_update: true

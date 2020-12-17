@@ -1,0 +1,28 @@
+---
+- name: Update packages
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install needed packages
+  become: yes
+  apt:
+    pkg:
+      - sway
+      - wofi
+      - swayidle
+      - swaylock
+      - waybar
+      - xwayland
+
+- name: Copy .profile
+  copy:
+    src: .profile
+    dest: /home/{{ remote_user }}/.profile
+
+- name: Ensures {{project_root}}/conf dir exists
+  file: path=/home/{{ remote_user }}/.config/sway state=directory
+- name: Copy sway config
+  copy:
+    src: config
+    dest: /home/{{ remote_user }}/.config/sway/config

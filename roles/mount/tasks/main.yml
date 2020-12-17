@@ -1,0 +1,50 @@
+---
+# Do not create mountpoint using file, the mount module will create it
+# automatically. This avoids problems where the module tries to change
+# permissions on an existing directory
+
+- name: make sure folder to mount to exist
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /home/lino/ZenStation/audio
+    - /home/lino/ZenStation/video
+    - /home/lino/ZenStation/photo
+    - /home/lino/ZenStation/share
+    - /home/lino/ZenStation/borg
+    - /home/lino/ZenStation/archive
+
+- name: mount nfs shares
+  become: true
+  mount:
+    fstype: nfs
+    state: mounted
+    name: "{{ item.path }}"
+    opts: "vers={{ nfs_version }},{{ nfs_mount_opts }}"
+    src: "{{ item.location }}"
+  with_items: "{{ nfs_share_mounts }}"
+
+- name: copy .smb
+  become: true
+  copy:
+    src: .smb
+    dest: "/root/.smb"
+
+- name: secure .smb
+  become: true
+  shell: chmod 600 /root/.smb
+
+- name: edit /root/.smb such that its
+  pause:
+    prompt: "make sure credentials at /root/.smb are correct"
+
+- name: mount cifs shares
+  become: true
+  mount:
+    fstype: cifs
+    state: mounted
+    path: "{{ item.path }}"
+    opts: "credentials=/root/.smb,vers=3.0"
+    src: "{{ item.location }}"
+  with_items: "{{ samba_share_mounts }}"
