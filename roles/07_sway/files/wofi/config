@@ -1,0 +1,6 @@
+term=foot
+key_down=J
+key_up=K
+key_forward=J
+key_backward=K
+key_expand=Tab

@@ -1,2 +1,0 @@
-- name: install calibre
-  shell: wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sh /dev/stdin install_dir=~/.local/bin isolated=y
