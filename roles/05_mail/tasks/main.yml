@@ -1,0 +1,24 @@
+---
+- name: extract mu4e into /tmp
+  unarchive:
+    src: https://github.com/djcb/mu/releases/download/1.4.13/mu-1.4.13.tar.xz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy .mbsyncrc
+  copy:
+    src: .mbsyncrc
+    dest: /home/{{ remote_user }}/.mbsyncrc
+
+- name: autogen mu4e
+  shell: ./autogen.sh chdir=/tmp/mu-1.4.13
+
+- name: make mu4e
+  shell: make chdir=/tmp/mu-1.4.13
+
+- name: install mu4e
+  become: yes
+  shell: make install chdir=/tmp/mu-1.4.13
+
+- name: init mail database
+  shell: "mu init -m /home/lino/.mail --my-address=linus@sehn.tech && mu index"

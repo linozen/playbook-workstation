@@ -1,0 +1,95 @@
+---
+- name: Update packages
+  become: yes
+  apt:
+    update_cache: yes
+
+- name: Install needed packages
+  become: yes
+  apt:
+    pkg:
+      - sway
+      - wofi
+      - swayidle
+      - swaylock
+      - xwayland
+      - lxpolkit
+      - grimshot
+      # file browser
+      - caja
+      - caja-seahorse
+      - caja-open-terminal
+      - caja-share
+      # bluetooth manager
+      - blueman
+
+- name: Ensures fish's conf.d exists
+  file: path=/home/{{ remote_user }}/.config/fish/conf.d state=directory
+- name: Copy sway.fish
+  copy:
+    src: sway.fish
+    dest: /home/lino/.config/fish/conf.d/sway.fish
+
+- name: Ensures sway config dir exists
+  file: path=/home/{{ remote_user }}/.config/sway state=directory
+- name: Copy sway config
+  copy:
+    src: config
+    dest: /home/{{ remote_user }}/.config/sway/config
+
+- name: Ensures /.local/bin exists
+  file: path=/home/{{ remote_user }}/.local/bin state=directory
+- name: Copy lock script
+  copy:
+    src: lock
+    dest: /home/{{ remote_user }}/.local/bin/lock
+    mode: 0755
+
+- name: Ensures wofi config dir exists
+  file: path=/home/{{ remote_user }}/.config/wofi state=directory
+- name: Copy wofi config
+  synchronize:
+    src: wofi/
+    dest: /home/{{ remote_user }}/.config/wofi/
+
+- name: Ensures foot config dir exists
+  file: path=/home/{{ remote_user }}/.config/foot state=directory
+- name: Copy wofi config
+  synchronize:
+    src: foot/
+    dest: /home/{{ remote_user }}/.config/foot/
+
+- name: Copy i3status-rs executable
+  copy:
+    src: i3status-rust/i3status-rs
+    dest: /home/{{ remote_user }}/.local/bin/i3status-rs
+    mode: 0755
+
+- name: Ensures i3status-rust config dir exists
+  file: path=/home/{{ remote_user }}/.config/i3status-rust state=directory
+- name: Copy i3status-rust config
+  copy:
+    src: i3status-rust/config.toml
+    dest: /home/{{ remote_user }}/.config/i3status-rust/config.toml
+
+- name: Copy wofi-pass executable
+  copy:
+    src: wofi-pass
+    dest: /home/{{ remote_user }}/.local/bin/wofi-pass
+    mode: 0755
+
+- name: Copy background
+  copy:
+    src: space.png
+    dest: "/home/lino/Pictures/space.png"
+
+- name: Create themes folder
+  file:
+    path: /home/lino/.themes
+    state: directory
+
+- name: Sync theme
+  unarchive:
+    src: theme.tar.xz
+    dest: /home/lino/.themes
+    extra_opts: [--strip-components=1]

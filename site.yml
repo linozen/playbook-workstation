@@ -1,18 +1,10 @@
 - hosts: all
   roles:
-    # - base
-    - sway
-    # - fish
-    # - base-emacs
-    # - doom-emacs
-    # - gnome
-    # - flatpak
-    # - mullvad
-    # - borg
-    # - mount
-    # - docker
-    # - js
-    # - python
-    # - go
-    # - calibre
-    # - security
+    - 01_base
+    # - 02_backup
+    # - 03_shell
+    # - 04_emacs
+    # - 05_mail
+    # - 06_vpn
+    # - 07_sway
+    # - 08_opt

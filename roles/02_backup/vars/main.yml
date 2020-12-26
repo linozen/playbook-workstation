@@ -1,0 +1,50 @@
+---
+# authentication
+ssh_key_file: .ssh/id_ed25519
+borg_encryption_passphrase: CHANGE_ME
+
+# repo location
+borg_url: s6x0i635.repo.borgbase.com
+borg_repository_remote: s6x0i635@s6x0i635.repo.borgbase.com:repo
+borg_repository_local: /media/lino/data/backup
+
+# the files I can't do without
+borg_source_directories:
+  - /home/lino/Exocortex
+  - /home/lino/Projects
+  - /home/lino/Zotero
+  - /home/lino/.zotero
+  - /home/lino/.doom.d
+  - /home/lino/.config
+  - /home/lino/.mail
+  - /home/lino/.gnupg
+  - /home/lino/.ssh
+  - /home/lino/.password-store
+  - /home/lino/.local/share/fish/fish_history
+
+# what I don't need
+borg_exclude_patterns:
+  - "'*.tmp'"
+  - "/home/*/node_modules"
+  - "/home/*/.stfolder"
+
+borgmatic_failure_command:
+  - echo "`date` - Error while creating a backup."
+
+# possibly change them later
+borgmatic_before_backup_command: []
+borgmatic_after_backup_command: []
+borgmatic_hooks: []
+borg_one_file_system: true
+borg_exclude_from: []
+borg_encryption_passcommand: false
+borg_lock_wait_time: 5
+borg_ssh_command: false
+borg_remote_path: false
+
+# how long to keep stuff
+borg_retention_policy:
+  keep_hourly: 3
+  keep_daily: 7
+  keep_weekly: 4
+  keep_monthly: 12

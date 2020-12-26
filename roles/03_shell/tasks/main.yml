@@ -1,0 +1,81 @@
+- name: Change user shell to fish
+  become: yes
+  user:
+    name: "{{ remote_user }}"
+    shell: /bin/fish
+
+- name: Get fisher
+  shell: "fish -c 'curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher'"
+
+- name: Get asdf
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: /home/lino/.asdf
+    depth: 1
+
+- name: Get fisher packages
+  command: "fish -c 'fisher install {{ item }}'"
+  loop:
+    - linozen/fish-fzf
+    - linozen/fish-z
+    - linozen/fish-docker
+    - linozen/fish-git
+    - linozen/fish-pure
+
+- name: Copy fish config
+  copy:
+    src: config.fish
+    dest: /home/lino/.config/fish/config.fish
+
+- name: Copy .tool-versions
+  copy:
+    src: .tool-versions
+    dest: /home/lino/.tool-versions
+
+- name: Copy .default-npm-packages
+  copy:
+    src: .default-npm-packages
+    dest: /home/lino/.default-npm-packages
+
+- name: Copy .default-golang-pkgs
+  copy:
+    src: .default-npm-packages
+    dest: /home/lino/.default-golang-pkgs
+
+- name: Refresh fish
+  shell: "fish -c 'source /home/lino/.config/fish/config.fish'"
+
+- name: Set $PATH
+  shell: "fish -c 'set -U fish_user_paths {{ item }} $fish_user_paths'"
+  loop:
+    - /usr/local/bin
+    - /bin
+    - /usr/bin
+    - /home/lino/.go/bin
+    - /home/lino/.local/bin
+    - /home/lino/.emacs.d/bin
+
+- name: Install asdf plugins
+  shell: "fish -c '/home/lino/.asdf/bin/asdf plugin add {{ item }}'"
+  loop:
+    - python
+    - go https://github.com/kennyp/asdf-golang.git
+    - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
+    - node https://github.com/asdf-vm/asdf-nodejs
+  ignore_errors: yes
+
+- name: Add Node.js team to keyring
+  shell: "bash -c '/home/lino/.asdf/plugins/node/bin/import-release-team-keyring'"
+
+- name: Install asdf languages
+  shell: "fish -c '/home/lino/.asdf/bin/asdf {{ item }}'"
+  loop:
+    - install python 3.9.0
+    - install go 1.15
+    - install gohugo extended_0.79.0
+    - install node 14.15.1
+  ignore_errors: yes
+
+- name: Get fish_history
+  pause:
+    prompt: "maybe update your history from another machine, so you don't have to start from scratch"
