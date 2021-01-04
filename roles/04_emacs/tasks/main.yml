@@ -1,4 +1,6 @@
-- name: install packages needed for proper functioning of doom
+---
+# TODO: Add emacs build dependencies
+- name: install needed packages
   apt:
     pkg:
       - emacs
@@ -37,6 +39,9 @@
   become: yes
   tags:
     - packages
+
+# TODO: build fejfighter/emacs pgtk-nativecomp branch from source (see old)
+# TODO: adapt .desktop files for prefix
 
 - name: sync fonts
   synchronize:
@@ -116,8 +121,9 @@
 
 - name: associate org-protocol
   shell: "xdg-mime default org-protocol.desktop x-scheme-handler/org-protocol"
-
-- name: copy compiled vterm
-  copy:
-    src: vterm-module.so
-    dest: /home/lino/.emacs.d/.local/straight/build-27.1/vterm/vterm-module.so
+#
+# not needed since it builds properly now
+# - name: copy compiled vterm
+#   copy:
+#     src: vterm-module.so
+#     dest: /home/lino/.emacs.d/.local/straight/build-27.1/vterm/vterm-module.so
