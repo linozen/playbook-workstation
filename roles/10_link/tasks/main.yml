@@ -1,4 +1,5 @@
 ---
+# TODO: symlink all config files to files in this repo
 - name: Ensures Projects dir exists
   file: path=/home/{{ remote_user }}/Projects state=directory
 
