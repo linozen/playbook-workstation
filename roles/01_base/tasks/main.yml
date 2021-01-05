@@ -72,6 +72,8 @@
       # libreoffice
       - libreoffice
       - libreoffice-gtk3
+      # monitoring
+      - lm-sensors
 
 - name: Remove unnecessary packages
   become: yes

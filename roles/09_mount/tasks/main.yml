@@ -15,8 +15,8 @@
     - /home/lino/ZenStation/borg
     - /home/lino/ZenStation/archive
 
-- name: mount nfs shares
-  become: true
+- name: test
+  become: yes
   mount:
     fstype: nfs
     state: mounted

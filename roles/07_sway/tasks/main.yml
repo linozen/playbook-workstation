@@ -13,15 +13,12 @@
       - swayidle
       - swaylock
       - xwayland
-      - lxpolkit
       - grimshot
-      # file browser
-      - caja
-      - caja-seahorse
-      - caja-open-terminal
-      - caja-share
+      - gammastep
       # bluetooth manager
       - blueman
+      # gnome stuff
+      - policykit-1-gnome
 
 - name: Ensures fish's conf.d exists
   file: path=/home/{{ remote_user }}/.config/fish/conf.d state=directory
@@ -78,10 +75,19 @@
     dest: /home/{{ remote_user }}/.local/bin/wofi-pass
     mode: 0755
 
+- name: Ensures ~/Pictures exists
+  file: path=/home/{{ remote_user }}/Pictures state=directory
 - name: Copy background
   copy:
     src: space.png
     dest: "/home/lino/Pictures/space.png"
+
+- name: Ensures ~/.xkb exists
+  file: path=/home/{{ remote_user }}/.xkb/symbols state=directory
+- name: Copy keymap
+  copy:
+    src: gb-german-umlaut
+    dest: /home/{{ remote_user }}/.xkb/symbols/gb-german-umlaut
 
 - name: Create themes folder
   file:

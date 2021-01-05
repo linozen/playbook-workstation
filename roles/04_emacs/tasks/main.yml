@@ -36,12 +36,55 @@
       - latexmk
       - lmodern
       - graphviz
+      - texinfo
+      - libx11-dev
+      - libxpm-dev
+      - libjpeg-dev
+      - libpng-dev
+      - libgif-dev
+      - libtiff-dev
+      - libgtk-3-dev
+      - libncurses-dev
+      - libgnutls28-dev
+      - libjansson-dev
+      - libgccjit-8-dev
+      - libgccjit-9-dev
+      - libgccjit-10-dev
+      - shellcheck
   become: yes
   tags:
     - packages
 
-# TODO: build fejfighter/emacs pgtk-nativecomp branch from source (see old)
+# TODO: build flatwhatson/emacs pgtk-nativecomp branch from source (see old)
 # TODO: adapt .desktop files for prefix
+
+- name: Ensures ~/Source exists
+  file: path=/home/{{ remote_user }}/Source state=directory
+
+- name: Get emacs from source
+  git:
+    repo: "https://github.com/flatwhatson/emacs.git"
+    dest: "~/Source/emacs"
+    depth: 1
+    version: "pgtk-nativecomp"
+    accept_hostkey: yes
+
+- name: Build emacs
+  pause:
+    prompt: "build emacs"
+
+- name: Build emacs (./autogen.sh)
+  shell: ./autogen.sh chdir=~/Source/emacs
+
+- name: Build emacs (./configure ...)
+  shell: ./configure --with-pgtk --with-cairo --with-nativecomp --with-modules --without-makeinfo chdir=~/Source/emacs
+
+- name: Build emacs (make)
+  shell: make -j10 chdir=~/Source/emacs
+
+- name: install emacs
+  become: yes
+  shell: make install chdir=/home/{{ remote_user }}/Source/emacs
 
 - name: sync fonts
   synchronize:
@@ -51,8 +94,8 @@
 - name: refresh fonts cache
   shell: "fc-cache -f -v"
 
-# - name: remove .emacs.d
-#   shell: rm -rf /home/lino/.emacs.d
+- name: remove .emacs.d
+  shell: rm -rf /home/lino/.emacs.d
 
 - name: clone doom emacs and private configuration
   git:
