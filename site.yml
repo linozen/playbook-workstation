@@ -7,5 +7,10 @@
     # - 05_mail
     # - 06_vpn
     # - 07_sway
+<<<<<<< HEAD
     # - 08_opt
     # - 09_mount
+=======
+    - 08_opt
+    - 09_mount
+>>>>>>> ad8cf4b341e9c873cdb16ba60052c7c2d8a69b74
