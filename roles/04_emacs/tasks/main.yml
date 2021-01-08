@@ -58,35 +58,6 @@
 # TODO: build flatwhatson/emacs pgtk-nativecomp branch from source (see old)
 # TODO: adapt .desktop files for prefix
 
-<<<<<<< HEAD
-# - name: Ensures ~/Source exists
-#   file: path=/home/{{ remote_user }}/Source state=directory
-
-# - name: Get emacs from source
-#   git:
-#     repo: "https://github.com/fejfighter/emacs.git"
-#     dest: "~/Source/emacs"
-#     depth: 1
-#     version: "pgtk-nativecomp"
-#     accept_hostkey: yes
-
-# - name: Build emacs
-#   pause:
-#     prompt: "build emacs"
-
-# - name: autogen emacs
-#   shell: ./autogen.sh chdir=~/Source/emacs
-
-# - name: configure emacs
-#   shell: ./configure --with-pgtk --with-cairo --with-nativecomp --with-modules --without-makeinfo chdir=~/Source/emacs
-
-# - name: make
-#   shell: make -j10 chdir=~/Source/emacs
-
-# - name: install emacs
-#   become: yes
-#   shell: make install chdir=/home/{{ remote_user }}/Source/emacs
-=======
 - name: Ensures ~/Source exists
   file: path=/home/{{ remote_user }}/Source state=directory
 
