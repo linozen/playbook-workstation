@@ -18,8 +18,9 @@ borg_source_directories:
   - /home/lino/.config
   - /home/lino/.mail
   - /home/lino/.gnupg
-  - /home/lino/.ssh
   - /home/lino/.password-store
+  - /home/lino/.ssh
+  - /home/lino/.thunderbird
   - /home/lino/.local/share/fish/fish_history
 
 # what I don't need

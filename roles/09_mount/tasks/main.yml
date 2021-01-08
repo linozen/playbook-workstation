@@ -8,15 +8,15 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - /home/lino/ZenStation/audio
-    - /home/lino/ZenStation/video
-    - /home/lino/ZenStation/photo
-    - /home/lino/ZenStation/share
-    - /home/lino/ZenStation/borg
-    - /home/lino/ZenStation/archive
+    - /home/lino/Syno/audio
+    - /home/lino/Syno/video
+    - /home/lino/Syno/photo
+    - /home/lino/Syno/share
+    - /home/lino/Syno/borg
+    - /home/lino/Syno/archive
 
-- name: mount nfs shares
-  become: true
+- name: test
+  become: yes
   mount:
     fstype: nfs
     state: mounted

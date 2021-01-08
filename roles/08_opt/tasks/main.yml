@@ -7,4 +7,4 @@
 
 - name: Enable firewall upon completion
   pause:
-    prompt: "Use ufw to enable firewall and only allow syntching traffic"
+    prompt: "Use ufw to enable firewall and only allow syntching and xmpp (5222) traffic"
