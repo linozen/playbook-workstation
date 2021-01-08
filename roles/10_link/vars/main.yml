@@ -1,3 +1,5 @@
 links:
   - src: "{{ remote_user }}/.config/foot/foot.ini"
     dest: "{{ remote_user }}/Projects/roles/07_sway/files/foot/foot.ini"
+  - src: "{{ remote_user }}/.config/sway/config"
+    dest: "{{ remote_user }}/Projects/roles/07_sway/files/config"

@@ -2,20 +2,20 @@
 # List of NFS shares
 nfs_share_mounts:
   - path: /home/lino/ZenStation/audio
-    location: 192.168.0.2:/volume1/audio
+    location: 192.168.178.11:/volume1/audio
   - path: /home/lino/ZenStation/video
-    location: 192.168.0.2:/volume1/video
+    location: 192.168.178.11:/volume1/video
   - path: /home/lino/ZenStation/photo
-    location: 192.168.0.2:/volume1/photo
+    location: 192.168.178.11:/volume1/photo
   - path: /home/lino/ZenStation/share
-    location: 192.168.0.2:/volume1/share
+    location: 192.168.178.11:/volume1/share
   - path: /home/lino/ZenStation/borg
-    location: 192.168.0.2:/volume1/borg
+    location: 192.168.178.11:/volume1/borg
 
 nfs_version: 4
 nfs_mount_opts: rsize=8192,wsize=8192,timeo=14,intr
 
 # CIFS
 samba_share_mounts:
-  - path: /home/lino/ZenStation/archive
-    location: //192.168.0.2/archive
+  - path: /home/lino/Syno/archive
+    location: //192.168.178.11/archive
