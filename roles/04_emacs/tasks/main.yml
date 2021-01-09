@@ -85,7 +85,6 @@
 - name: install emacs
   become: yes
   shell: make install chdir=/home/{{ remote_user }}/Source/emacs
->>>>>>> ad8cf4b341e9c873cdb16ba60052c7c2d8a69b74
 
 - name: sync fonts
   synchronize:

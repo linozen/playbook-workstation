@@ -1,15 +1,15 @@
 ---
 # List of NFS shares
 nfs_share_mounts:
-  - path: /home/lino/ZenStation/audio
+  - path: /home/lino/Syno/audio
     location: 192.168.178.11:/volume1/audio
-  - path: /home/lino/ZenStation/video
+  - path: /home/lino/Syno/video
     location: 192.168.178.11:/volume1/video
-  - path: /home/lino/ZenStation/photo
+  - path: /home/lino/Syno/photo
     location: 192.168.178.11:/volume1/photo
-  - path: /home/lino/ZenStation/share
+  - path: /home/lino/Syno/share
     location: 192.168.178.11:/volume1/share
-  - path: /home/lino/ZenStation/borg
+  - path: /home/lino/Syno/borg
     location: 192.168.178.11:/volume1/borg
 
 nfs_version: 4
