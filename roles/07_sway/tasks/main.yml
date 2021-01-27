@@ -15,11 +15,15 @@
       - xwayland
       - grimshot
       - gammastep
+      - wlogout
+      - wdisplays
       # bluetooth manager
       - blueman
-      # gnome stuff
-      - policykit-1-gnome
+      # policykit
+      - lxpolkit
 
+# Check out https://github.com/ammgws/letssway
+    
 - name: Ensures fish's conf.d exists
   file: path=/home/{{ remote_user }}/.config/fish/conf.d state=directory
 - name: Copy sway.fish
