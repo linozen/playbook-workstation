@@ -3,11 +3,11 @@
     # - 01_base
     # - 02_backup
     # - 03_shell
-    - 04_emacs
+    # - 04_emacs
     # - 05_mail
     # - 06_vpn
     # - 07_sway
     # - 08_opt
     # - 09_mount
-    - 08_opt
+    # - 08_opt
     - 09_mount
