@@ -10,6 +10,7 @@
     pkg:
       # essentials
       - git
+      - emacs
       - ansible
       - locales
       - build-essential
@@ -17,7 +18,7 @@
       - ntp
       - htop
       - net-tools
-      - fish
+      - zsh
       - fzf
       - exa
       - curl
@@ -36,19 +37,12 @@
       - apparmor-profiles-extra
       - auditd
       - audispd-plugins
-      - pinentry-gnome3
       - ufw
-      # file browser
-      - caja
-      - caja-seahorse
-      - caja-open-terminal
-      - caja-share
       # browser
       - firefox-esr
       - torbrowser-launcher
       - webext-browserpass
       - webext-debianbuttons
-      - webext-treestyletab
       - webext-ublock-origin-firefox
       # mount stuff
       - cifs-utils
@@ -69,9 +63,10 @@
       - docker.io
       - docker-clean
       - docker-compose
-      # libreoffice
+      # office
       - libreoffice
       - libreoffice-gtk3
+      - calibre
       # monitoring
       - lm-sensors
 

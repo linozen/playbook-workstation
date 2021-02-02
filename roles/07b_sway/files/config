@@ -6,7 +6,7 @@ exec wl-paste -t text --watch clipman store 1>> ~/.local/share/clipman.log 2>&1 
 exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json"
 
 # polkit
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec lxpolkit
 
 # night light
 exec gammastep -b 1.0:0.6 -l 52.52:13.40 -t 6500:4000
@@ -61,11 +61,11 @@ gaps outer 10
 
 # Window Decoration
 # class                 border  backgr. text    indicator child_border
-client.focused          #98be65 #21242b #bbc2cf #98be65   #98be65
-client.focused_inactive #73797e #21242b #bbc2cf #73797e   #73797e
-client.unfocused        #282c34 #21242b #bbc2cf #282c34   #282c34
-client.urgent           #ff6c6b #21242b #bbc2cf #ff6c6b   #ff6c6b
-client.placeholder      #21242b #21242b #bbc2cf #21242b   #21242b
+client.focused          #98be65 #000000 #bbc2cf #98be65   #98be65
+client.focused_inactive #73797e #000000 #bbc2cf #73797e   #73797e
+client.unfocused        #282c34 #000000 #bbc2cf #282c34   #282c34
+client.urgent           #ff6c6b #000000 #bbc2cf #ff6c6b   #ff6c6b
+client.placeholder      #21242b #000000 #bbc2cf #21242b   #21242b
 
 
 # put laptop to sleep when only 10% of battery is left or it was idle for 2h
@@ -73,8 +73,8 @@ exec sleepd -b 10 -u 600 -U 7200
 
 # swayidle
 exec swayidle -w \
-        timeout 120 'lock' \
-        timeout 240 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+        timeout 300 'lock' \
+        timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
         before-sleep 'lock'
 #
 # This will lock your screen after 120 seconds of inactivity, then turn off
@@ -170,28 +170,28 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+1 workspace number 1:plan
-    bindsym $mod+2 workspace number 2:code
-    bindsym $mod+3 workspace number 3:conf
-    bindsym $mod+4 workspace number 4:acad
-    bindsym $mod+5 workspace number 5:virt
-    bindsym $mod+6 workspace number 6:kali
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    # bindsym $mod+6 workspace number 6
     # bindsym $mod+7 workspace number 7:
     # bindsym $mod+8 workspace number 8:
     # bindsym $mod+9 workspace number 9:
-    bindsym $mod+0 workspace number 10:comm
+    # bindsym $mod+0 workspace number 10:comm
 
     # Move focused container to workspace
-    bindsym $mod+Shift+1 move container to workspace number 1:plan
-    bindsym $mod+Shift+2 move container to workspace number 2:code
-    bindsym $mod+Shift+3 move container to workspace number 3:conf
-    bindsym $mod+Shift+4 move container to workspace number 4:acad
-    bindsym $mod+Shift+5 move container to workspace number 5:virt
-    bindsym $mod+Shift+6 move container to workspace number 6:kali
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    # bindsym $mod+Shift+6 move container to workspace number 6
     # bindsym $mod+Shift+7 move container to workspace number 7:
     # bindsym $mod+Shift+8 move container to workspace number 8:
     # bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10:comm
+    # bindsym $mod+Shift+0 move container to workspace number 10:comm
     
     # Move to next and previous workspace a
     bindsym $mod+l workspace next
@@ -270,10 +270,10 @@ bar {
     # use i3status-rust
     status_command i3status-rs 
     colors {
-           background #21242b
+           background #000000
            # class              border  backgr. text
-           focused_workspace    #98be65 #21242b #98be65
-           inactive_workspace   #21242b #21242b #bbc2cf
+           focused_workspace    #98be65 #000000 #98be65
+           inactive_workspace   #000000 #000000 #bbc2cf
     }
 }
 
