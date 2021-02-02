@@ -16,8 +16,9 @@ borg_source_directories:
   - /home/lino/.zotero
   - /home/lino/.doom.d
   - /home/lino/.config
-  - /home/lino/.mail
+  - /home/lino/.gitconfig
   - /home/lino/.gnupg
+  - /home/lino/.mail
   - /home/lino/.password-store
   - /home/lino/.ssh
   - /home/lino/.thunderbird
