@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMG=/tmp/swaylock.png
+SCREENHOT="grimshot save screen $IMG"
+BLUR="0x8"
+
+$SCREENHOT
+convert $IMG -blur $BLUR -fill black -colorize 80% $IMG
+swaylock -i $IMG --font JetBrainsMono
+rm $IMG
