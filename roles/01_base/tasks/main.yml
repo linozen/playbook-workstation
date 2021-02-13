@@ -10,6 +10,7 @@
     pkg:
       # essentials
       - git
+      - autojump
       - ansible
       - locales
       - build-essential
