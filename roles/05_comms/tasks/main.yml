@@ -1,4 +1,14 @@
 ---
+- name: Install thunderbird
+  become: yes
+  apt:
+    pkg:
+      - thunderbird
+      - thunderbird-l10n-de
+      - webext-tbsync
+      - enigmail
+      - dino-im
+
 - name: extract mu4e into /tmp
   unarchive:
     src: https://github.com/djcb/mu/releases/download/1.4.13/mu-1.4.13.tar.xz

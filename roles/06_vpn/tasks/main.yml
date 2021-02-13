@@ -4,4 +4,4 @@
 
 - name: install mullvad
   become: yes
-  shell: "yes | gdebi /tmp/Mullvad*"
+  shell: "yes | dpkg -i /tmp/Mullvad*"

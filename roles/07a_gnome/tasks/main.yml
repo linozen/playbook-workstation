@@ -1,0 +1,39 @@
+---
+- name: Install extensions and icons
+  become: yes
+  apt:
+    pkg:
+      - gnome-shell-extension-caffeine
+      - gnome-shell-extension-autohidetopbar
+      - gnome-shell-extension-dashtodock
+      - gnome-shell-extension-no-annoyance
+      - papirus-icon-theme
+
+- name: Copy background
+  copy:
+    src: space.png
+    dest: "/home/lino/Pictures/space.png"
+
+- name: Create themes folder
+  file:
+    path: /home/lino/.themes
+    state: directory
+
+- name: Sync theme
+  unarchive:
+    src: theme.tar.xz
+    dest: /home/lino/.themes
+    extra_opts: [--strip-components=1]
+
+- name: Create themes folder
+  file:
+    path: /home/lino/.local/share/icons
+    state: directory
+
+- name: Copy gnome config file
+  copy:
+    src: gnome.conf
+    dest: "/tmp/gnome.conf"
+
+- name: Load gnome config
+  shell: "cat /tmp/gnome.conf | dconf load /"
