@@ -43,6 +43,7 @@
     name: emacs
     enabled: true
     state: started
+    scope: user
 
 - name: Ensures ~/.local/share/applications
   file: path=/home/{{ local_user.stdout }}/.local/share/applications
