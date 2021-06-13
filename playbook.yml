@@ -17,3 +17,13 @@
         name: ansible-borgbackup
   tags:
     - backup
+
+- name: Setup shell
+  hosts: all
+  become: true
+  tasks:
+    - name: run roles/ansible-shell
+      include_role:
+        name: ansible-shell
+  tags:
+    - shell
