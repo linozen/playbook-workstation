@@ -1,8 +1,13 @@
 ---
+- name: Get the username running the deploy
+  become: false
+  local_action: command whoami
+  register: user
+
 - name: Change user shell to zsh
   become: true
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ user }}"
     shell: /bin/zsh
 
 - name: Get oh-my-zsh
