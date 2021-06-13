@@ -4,7 +4,7 @@
   apt_key:
     url: "{{ item.key_location }}"
     state: present
-  loop: "{{ third_party_repos | dict2items }}"
+  loop: "{{ third_party_repos }}"
 
 - name: Add third-party repositories
   become: true
@@ -13,7 +13,7 @@
     state: present
     filename: "{{ item.filename }}"
     update_cache: true
-  loop: "{{ third_party_repos | dict2items }}"
+  loop: "{{ third_party_repos }}"
 
 - name: Install base packages
   become: true
