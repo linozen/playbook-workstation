@@ -1,0 +1,60 @@
+---
+third_party_repos:
+  - zotero:
+      filename: "zotero"
+      key_location: "https://github.com/retorquere/zotero-deb/releases/download/apt-get/deb.gpg.key"
+      repo: "deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./"
+  - signal:
+      filename: "signal"
+      key_location: "https://updates.signal.org/desktop/apt/keys.asc"
+      repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
+  - emacs:
+      filename: "emacs"
+      key_location: "http://emacs.ganneff.de/apt.key"
+      repo: "deb http://emacs.ganneff.de/ bullseye main"
+
+mullvad_account_number: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  30343761376539633733663065323530323639633031613736353066373033643939333661373663
+  3764383261343664633362303035376436666338666639350a303566636364656264393661346434
+  39336137343262336639303766303533303735393939356533626365343962396137353363643966
+  6138343034663133330a366132616531376662373933333738396563613335363663663530386634
+  65383965383730343033363739663061643639333230653764663239323663326262
+
+borg_repository:
+  - jq41lb6r@jq41lb6r.repo.borgbase.com:repo
+  - /media/lino/data/backup
+borg_encryption_passphrase: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  38386430656336383339636533666333396533613331336639383833656663623035323531393531
+  3062383063346638393733643432376466386434316335620a306466396232356264383330313264
+  34663563636136326265383939323332383534383134373130623365373537623366373961613936
+  3730396465343131300a613862333665343939636566343530663631323434386135353262373565
+  39326532613233303439383035643133383737626530373534623862353861636166
+borg_source_directories:
+  # Most important; will restore
+  - /home/lino/Exocortex
+  - /home/lino/Projects
+  - /home/lino/Zotero
+  - /home/lino/.zotero
+  - /home/lino/.mail
+  - /home/lino/.mbsyncrc
+  - /home/lino/.evolution
+  - /home/lino/.doom.d
+  - /home/lino/.password-store
+  # Less important; won't restore
+  - /home/lino/.mozilla
+  - /home/lino/.gnupg
+  - /home/lino/.ssh
+  - /home/lino/.gitconfig
+borg_retention_policy:
+  keep_hourly: 3
+  keep_daily: 7
+  keep_weekly: 4
+  keep_monthly: 6 - /home/lino/.config
+borg_exclude_patterns:
+  - "*.tmp"
+  - "*.pyc"
+  - /home/*/node_modules
+  - /home/*/.stfolder
+  - /home/*/.cache
