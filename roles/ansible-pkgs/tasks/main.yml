@@ -99,6 +99,7 @@
       - webext-ublock-origin-firefox
       - wget
       - xdg-utils
+      - xdotool
       - zotero
       - zsh
 

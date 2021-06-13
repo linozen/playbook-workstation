@@ -36,3 +36,12 @@
         name: ansible-doom-emacs
   tags:
     - emacs
+
+- name: Install Gnome Shell extensions
+  hosts: all
+  tasks:
+    - name: run roles/ansible-gnome-extensions
+      include_role:
+        name: ansible-gnome-extensions
+  tags:
+    - gnome

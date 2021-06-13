@@ -106,4 +106,9 @@ pipenv run ansible --version
 
 ### Setup Doom Emacs
 
-Sixth, you need (Doom Emacs).
+Sixth, you need [Doom Emacs](https://github.com/hlissner/doom-emacs). The
+following command will set it up for you:
+
+```bash
+pipenv run ansible-playbook --ask-become-pass playbook.yml --tags emacs
+```

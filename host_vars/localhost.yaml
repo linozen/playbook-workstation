@@ -55,3 +55,13 @@ borg_exclude_patterns:
   - /home/*/node_modules
   - /home/*/.stfolder
   - /home/*/.cache
+
+gnome_extension_ids:
+  # TopIcons Plus
+  - 1031
+  # TopIcons Plus
+  - 974
+  # Caffeine
+  - 517
+  # Dash to Dock
+  - 307
