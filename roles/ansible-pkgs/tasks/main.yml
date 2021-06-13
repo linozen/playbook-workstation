@@ -25,33 +25,46 @@
   apt:
     pkg:
       - acl
-      - ansible
       - apparmor-profiles
       - apparmor-profiles-extra
       - apparmor-utils
       - audispd-plugins
       - auditd
       - autojump
+      - biber
       - bleachbit
       - build-essential
       - calibre
       - chromium
       - cifs-utils
+      - cmake
       - cron
       - curl
       - emacs-snapshot
       - exa
+      - fd-find
       - firefox-esr
       - fzf
+      - graphviz
+      - html2text
       - htop
+      - hunspell
+      - hunspell-de-de
+      - hunspell-en-gb
+      - isync
+      - latexmk
       - libnfs-utils
+      - libpoppler-glib-dev
+      - libpoppler-private-dev
       - libreoffice
       - libreoffice-gtk3
       - libvirt-clients
       - libvirt-daemon-system
       - llvm
       - lm-sensors
+      - lmodern
       - locales
+      - locate
       - make
       - net-tools
       - nfs-common
@@ -59,20 +72,32 @@
       - openssh-client
       - pass
       - qemu-system
+      - ripgrep
       - rsync
+      - shellcheck
       - signal-desktop
       - smbclient
+      - sqlite3
       - syncthing
       - syncthing-gtk
+      - texinfo
+      - texlive-base
+      - texlive-font-utils
+      - texlive-fonts-extra
+      - texlive-humanities
+      - texlive-lang-german
+      - texlive-publishers
+      - texlive-science
       - torbrowser-launcher
       - ufw
       - virt-manager
       - vlc
       - webext-browserpass
       - webext-debianbuttons
-      - webext-ublock-origin-firefox
       - webext-ublock-origin-chromium
+      - webext-ublock-origin-firefox
       - wget
+      - xdg-utils
       - zotero
       - zsh
 
