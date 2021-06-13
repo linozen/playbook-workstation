@@ -2,12 +2,12 @@
 - name: Get the username running the deploy
   become: false
   local_action: command whoami
-  register: user
+  register: local_user
 
 - name: Change user shell to zsh
   become: true
   user:
-    name: "{{ user.stdout }}"
+    name: "{{ local_user.stdout }}"
     shell: /bin/zsh
 
 - name: Get oh-my-zsh
@@ -24,8 +24,8 @@
 - name: Symlink relevant config files to playbook-workstation
   become: false
   file:
-    src: "{{ ansible_env.HOME}}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
-    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
+    dest: "{{ local_user.stdout }}/{{ item }}"
     state: link
   loop:
     - .zshrc
