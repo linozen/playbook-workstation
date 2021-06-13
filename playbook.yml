@@ -27,3 +27,12 @@
         name: ansible-shell
   tags:
     - shell
+
+- name: Setup emacs
+  hosts: all
+  tasks:
+    - name: run roles/ansible-emacs
+      include_role:
+        name: ansible-shell
+  tags:
+    - emacs
