@@ -170,11 +170,6 @@ function apt-history(){
 export PATH=~/.emacs.d/bin:$PATH
 export PATH=~/.local/bin:$PATH
 
-# tilix fix
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-
 # Hook direnv into your shell.
 eval "$(asdf exec direnv hook zsh)"
 
