@@ -43,12 +43,12 @@
   become: false
   git:
     repo: https://github.com/asdf-vm/asdf.git
-    dest: /home/lino/.asdf
+    dest: "/home/{{ local_user.stdout }}/.asdf"
     depth: 1
 
 - name: Add asdf plugins
   become: false
-  shell: "bash -c '/home/lino/.asdf/bin/asdf plugin add {{ item }}'"
+  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf plugin add {{ item }}'"
   loop:
     - python https://github.com/danhper/asdf-python
     - nodejs https://github.com/asdf-vm/asdf-nodejs
@@ -57,11 +57,11 @@
 
 - name: Add Node.js team to keyring
   become: false
-  shell: "bash -c '/home/lino/.asdf/plugins/node/bin/import-release-team-keyring'"
+  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/plugins/nodejs/bin/import-release-team-keyring'"
 
 - name: Install asdf languages
   become: false
-  shell: "bash -c '/home/lino/.asdf/bin/asdf install {{ item }}'"
+  shell: "bash -c '/home/lino/{{ local_user.stdout }}/bin/asdf install {{ item }}'"
   loop:
     - python 3.9.2
     - nodejs lts
