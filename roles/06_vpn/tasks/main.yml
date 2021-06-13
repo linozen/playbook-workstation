@@ -1,7 +1,0 @@
----
-- name: get mullvad
-  shell: "wget --content-disposition -P /tmp/ https://mullvad.net/download/app/deb/latest"
-
-- name: install mullvad
-  become: yes
-  shell: "yes | dpkg -i /tmp/Mullvad*"
