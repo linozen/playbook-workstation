@@ -1,17 +1,14 @@
 ---
 third_party_repos:
-  - zotero:
-      filename: "zotero"
-      key_location: "https://github.com/retorquere/zotero-deb/releases/download/apt-get/deb.gpg.key"
-      repo: "deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./"
-  - signal:
-      filename: "signal"
-      key_location: "https://updates.signal.org/desktop/apt/keys.asc"
-      repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
-  - emacs:
-      filename: "emacs"
-      key_location: "http://emacs.ganneff.de/apt.key"
-      repo: "deb http://emacs.ganneff.de/ bullseye main"
+  - filename: "zotero"
+    key_location: "https://github.com/retorquere/zotero-deb/releases/download/apt-get/deb.gpg.key"
+    repo: "deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./"
+  - filename: "signal"
+    key_location: "https://updates.signal.org/desktop/apt/keys.asc"
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main"
+  - filename: "emacs"
+    key_location: "http://emacs.ganneff.de/apt.key"
+    repo: "deb http://emacs.ganneff.de/ bullseye main"
 
 mullvad_account_number: !vault |
   $ANSIBLE_VAULT;1.1;AES256
