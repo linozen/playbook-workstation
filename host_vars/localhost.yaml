@@ -39,11 +39,11 @@ borg_source_directories:
   - /home/lino/.evolution
   - /home/lino/.doom.d
   - /home/lino/.password-store
+  - /home/lino/.gitconfig
   # Less important; won't restore
   - /home/lino/.mozilla
   - /home/lino/.gnupg
   - /home/lino/.ssh
-  - /home/lino/.gitconfig
 borg_retention_policy:
   keep_hourly: 3
   keep_daily: 7

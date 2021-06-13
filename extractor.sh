@@ -43,6 +43,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     cd /home/lino
     echo "Restoring ~/Projects"
     borg extract --strip-components 2 --list -p "$BORG_PATH::$BACKUP" home/lino/Projects
+    borg extract --strip-components 2 --list -p "$BORG_PATH::$BACKUP" home/lino/.gitconfig
 fi
 
 echo
