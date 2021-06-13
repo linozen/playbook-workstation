@@ -2,7 +2,7 @@
 
 ## Usage
 
-### GPG Keys
+### Setup GnuPG
 
 First, install a couple of essential packages:
 
@@ -45,7 +45,7 @@ gpg2 --import <yourkey@id>.sub_priv.asc
 # gpg2 --import-ownertrust ownertrust.txt
 ```
 
-### SSH Keys
+### Setup SSH Keys
 
 Second, generate a new SSH key for the new machine's user account
 
@@ -55,14 +55,25 @@ ssh-keygen -t ed25519 -C "<username>@<new_host>"
 
 Next, proceed to add the public part of this key wherever you need it.
 
+### Install Packages
+
+After cloning this repo, run the command below, to install all packages
+specified in
+[`roles/ansible-pkgs/tasks/main.yml`](roles/ansible-pkgs/tasks/main.yml) and
+enable the third party repos specified in [`host_vars/localhost.yaml`](host_vars/localhost.yaml)
+
+```bash
+git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git
+ansible-playbook --ask-become-pass playbook.yml --tags pkgs
+```
+
 ### Restore from Backup
 
-Third, I restore my important files from Backup and enable backups for the new
+Fourth, I restore my important files from Backup and enable backups for the new
 host. To set up automated backups using `borgmatic` on
 [BorgBase](https://borgbase.com), simply run the corresponding role in this
 playbook
 
 ```bash
-git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git
 ansible-playbook --ask-become-pass playbook.yml --tags backup
 ```

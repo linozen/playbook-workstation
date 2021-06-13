@@ -1,4 +1,13 @@
 ---
+- name: Install base packages
+  hosts: all
+  tasks:
+    - name: run roles/ansible-pkgs
+      include_role:
+        name: ansible-pkgs
+  tags:
+    - pkgs
+
 - name: Enable backups
   hosts: all
   become: true
@@ -8,12 +17,3 @@
         name: ansible-borgbackup
   tags:
     - backup
-
-- name: Install base packages
-  hosts: all
-  tasks:
-    - name: run roles/ansible-pkgs
-      include_role:
-        name: ansible-pkgs
-  tags:
-    - pkgs
