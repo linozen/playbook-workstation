@@ -11,8 +11,7 @@
     shell: /bin/zsh
 
 - name: Get oh-my-zsh
-  become: true
-  become_username: "{{ user.stdout }}"
+  become: false
   shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 
 - name: Get asdf
