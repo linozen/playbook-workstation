@@ -48,7 +48,7 @@ borg_retention_policy:
   keep_hourly: 3
   keep_daily: 7
   keep_weekly: 4
-  keep_monthly: 6 - /home/lino/.config
+  keep_monthly: 6
 borg_exclude_patterns:
   - "*.tmp"
   - "*.pyc"
