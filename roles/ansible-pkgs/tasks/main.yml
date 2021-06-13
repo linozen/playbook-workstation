@@ -1,0 +1,161 @@
+---
+- name: Add third-party repository keys
+  become: true
+  apt_key:
+    url: "{{ item.key_location }}"
+    state: present
+  loop: "{{ thrid_party_repos | dict2items }}"
+
+- name: Add third-party repositories
+  become: true
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: present
+    filename: "{{ item.filename }}"
+    update_cache: true
+  loop: "{{ thrid_party_repos | dict2items }}"
+
+- name: Install base packages
+  become: true
+  apt:
+    pkg:
+      - acl
+      - ansible
+      - apparmor-profiles
+      - apparmor-profiles-extra
+      - apparmor-utils
+      - audispd-plugins
+      - auditd
+      - autojump
+      - bleachbit
+      - build-essential
+      - calibre
+      - chromium
+      - cifs-utils
+      - cron
+      - curl
+      - emacs-snapshot
+      - exa
+      - firefox-esr
+      - fzf
+      - htop
+      - libnfs-utils
+      - libreoffice
+      - libreoffice-gtk3
+      - libvirt-clients
+      - libvirt-daemon-system
+      - llvm
+      - lm-sensors
+      - locales
+      - make
+      - net-tools
+      - nfs-common
+      - ntp
+      - openssh-client
+      - pass
+      - qemu-system
+      - rsync
+      - signal
+      - smbclient
+      - syncthing
+      - syncthing-gtk
+      - torbrowser-launcher
+      - ufw
+      - virt-manager
+      - vlc
+      - webext-browserpass
+      - webext-debianbuttons
+      - webext-ublock-origin-firefox
+      - webext-ublock-origin-chromium
+      - wget
+      - zotero
+      - zsh
+
+- name: Remove unnecessary packages
+  become: true
+  apt:
+    state: absent
+    pkg:
+      - anthy
+      - fcitx
+      - fcitx-bin
+      - fcitx-data
+      - fcitx-modules
+      - fcitx-table
+      - fortune-mod
+      - gnome-boxes
+      - gnome-games
+      - goldendict
+      - hdate
+      - hdate-applet
+      - kasumi
+      - khmerconverter
+      - mlterm
+      - mlterm-tiny
+      - mozc-data
+      - mozc-server
+      - mozc-utils
+      - rhythmbox
+      - thunderbird
+      - uim-mozc
+      - xiterm+thai
+      - xterm
+
+- name: Remove useless packages from the cache
+  become: true
+  apt:
+    autoclean: true
+
+- name: Remove dependencies that are no longer required
+  become: true
+  apt:
+    autoremove: true
+
+- name: Copy syncthing user service to systemd directory
+  become: true
+  copy:
+    src: syncthing.service
+    dest: "/etc/systemd/user/syncthing.service"
+
+- name: Enable syncthing user service
+  service:
+    name: syncthing
+    enabled: true
+    state: started
+    scope: user
+
+- name: Get Mullvad VPN Signing Key
+  shell: "gpg2 --keyserver pool.sks-keyservers.net --recv-keys A1198702FC3E0A09A9AE5B75D5A1D4F266DE8DDF"
+  tags:
+    - vpn
+
+- name: Get Mullvad VPN client
+  get_url:
+    url: "https://mullvad.net/download/app/deb/latest"
+    dest: "{{ ansible_env.HOME }}/Downloads"
+  tags:
+    - vpn
+
+- name: Get Mullvad VPN client signing key
+  get_url:
+    url: "https://mullvad.net/download/app/deb/latest/signature"
+    dest: "{{ ansible_env.HOME }}/Downloads"
+  tags:
+    - vpn
+
+- name: Get Mullvad VPN Signing Key
+  shell: "gpg2 --verify {{ ansible_env.HOME }}/Downloads/MullvadVPN-*.asc"
+  tags:
+    - vpn
+
+- name: Install Mullvad VPN client
+  become: true
+  shell: "yes | dpkg -i /tmp/Mullvad*"
+  tags:
+    - vpn
+
+- name: Set Mullvad VPN account key
+  become: true
+  shell: "mullvad account set {{ mullvad_account_number }}"
+  tags:
+    - vpn
