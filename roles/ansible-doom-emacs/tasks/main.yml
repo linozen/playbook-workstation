@@ -4,60 +4,61 @@
   local_action: command whoami
   register: local_user
 
-- name: sync fonts
+- name: Sync fonts
   synchronize:
     src: fonts/
     dest: /home/{{ local_user.stdout }}/.local/share/fonts/
 
-- name: refresh fonts cache
+- name: Refresh fonts cache
   shell: "fc-cache -f -v"
 
-- name: remove .emacs.d
+- name: Remove .emacs.d
   shell: rm -rf /home/{{ local_user.stdout }}/.emacs.d
 
-- name: clone doom emacs and private configuration
+- name: Clone doom emacs and private configuration
   git:
     repo: "https://github.com/hlissner/doom-emacs.git"
     dest: "~/.emacs.d"
     depth: 1
     accept_hostkey: true
 
-- name: install doom
+- name: Install doom
   shell: "yes | ~/.emacs.d/bin/doom install"
   retries: 3
   delay: 1
 
-- name: sync doom
+- name: Sync doom
   shell: "yes | ~/.emacs.d/bin/doom sync"
   retries: 3
   delay: 1
 
-- name: copy emacs service to systemd directory
+- name: Copy emacs service to systemd directory
   become: true
   copy:
     src: emacs.service
     dest: "/etc/systemd/user/emacs.service"
 
-- name: enable emacs service
+- name: Enable emacs service
   service:
     name: emacs
     enabled: true
     state: started
-    user: true
 
 - name: Ensures ~/.local/share/applications
-  file: path=/home/{{ local_user.stdout }}/.local/share/applications state=directory
-- name: copy emacs.desktop file
+  file: path=/home/{{ local_user.stdout }}/.local/share/applications
+    state=directory
+
+- name: Copy emacs.desktop file
   copy:
     src: emacsclient.desktop
     dest: /home/{{ local_user.stdout }}/.local/share/applications/emacsclient.desktop
     mode: 0644
 
-- name: copy org-protocol.desktop file
+- name: Copy org-protocol.desktop file
   copy:
     src: org-protocol.desktop
     dest: /home/{{ local_user.stdout }}/.local/share/applications/org-protocol.desktop
     mode: 0644
 
-- name: associate org-protocol
+- name: Associate org-protocol
   shell: "xdg-mime default org-protocol.desktop x-scheme-handler/org-protocol"
