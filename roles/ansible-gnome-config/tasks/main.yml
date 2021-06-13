@@ -2,22 +2,22 @@
 - name: Copy background
   copy:
     src: space.png
-    dest: "/home/lino/Pictures/space.png"
+    dest: "/home/{{ ansible_env.HOME }}/Pictures/space.png"
 
 - name: Create themes folder
   file:
-    path: /home/lino/.themes
+    path: /home/{{ ansible_env.HOME }}/.themes
     state: directory
 
 - name: Sync theme
   unarchive:
     src: theme.tar.xz
-    dest: /home/lino/.themes
+    dest: /home/{{ ansible_env.HOME }}/.themes
     extra_opts: [--strip-components=1]
 
 - name: Create themes folder
   file:
-    path: /home/lino/.local/share/icons
+    path: /home/{{ ansible_env.HOME }}/.local/share/icons
     state: directory
 
 - name: Copy gnome config file

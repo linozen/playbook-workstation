@@ -45,3 +45,12 @@
         name: ansible-gnome-extensions
   tags:
     - gnome
+
+- name: Customise Gnome
+  hosts: all
+  tasks:
+    - name: run roles/ansible-gnome-config
+      include_role:
+        name: ansible-gnome-config
+  tags:
+    - gnome
