@@ -63,7 +63,7 @@ specified in
 enable the third party repos specified in [`host_vars/localhost.yaml`](host_vars/localhost.yaml)
 
 ```bash
-git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git
+git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git ~/Downloads/playbook-workstation
 ansible-playbook --ask-become-pass playbook.yml --tags pkgs
 ```
 
@@ -77,3 +77,21 @@ playbook
 ```bash
 ansible-playbook --ask-become-pass playbook.yml --tags backup
 ```
+
+Then, you can either use `borgmatic` to restore your backup or a version of my
+simple [borg backup extraction script](extractor.sh).
+
+### Setup the Shell
+
+Fifth, we setup `zsh` and `asdf`. For this to work flawlessly, make sure you
+have clone the repo again into `~/Projects`.
+
+```bash
+rm -rf ~/Downloads/playbook-workstation
+git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git ~/Projects/playbook-workstation
+ansible-playbook --ask-become-pass playbook.yml --tags shell
+```
+
+### Setup Doom Emacs
+
+Sixth,
