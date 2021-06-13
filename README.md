@@ -1,8 +1,6 @@
-# Provisioning of my Debain workstation
+# Provisioning a Debian Workstation
 
 ## Usage
-
-### Setup GnuPG
 
 First, install a couple of essential packages:
 
@@ -10,6 +8,8 @@ First, install a couple of essential packages:
 sudo apt-get update
 sudo apt-get install gnupg2 git curl ansible
 ```
+
+### Setup GnuPG
 
 Next, I restore my GPG keys using some simple scripts. See [this
 gist](https://gist.github.com/chrisroos/1205934) for more information. One for
@@ -92,6 +92,18 @@ git clone --recurse-submodules https://github.com/linozen/playbook-workstation.g
 ansible-playbook --ask-become-pass playbook.yml --tags shell
 ```
 
+Now, just to check whether everything is working, you can uninstall the global
+`ansible` and reinstall it as a dependency of this project using `pipenv` (which
+should have autmatically been installed in the Python version managed by
+`asdf`):
+
+```bash
+sudo apt-get remove ansible
+asdf reshim
+pipenv install
+pipenv run ansible --version
+```
+
 ### Setup Doom Emacs
 
-Sixth,
+Sixth, you need (Doom Emacs).

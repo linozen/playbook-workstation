@@ -28,11 +28,11 @@
   tags:
     - shell
 
-- name: Setup emacs
+- name: Setup (Doom) Emacs
   hosts: all
   tasks:
-    - name: run roles/ansible-emacs
+    - name: run roles/ansible-doom-emacs
       include_role:
-        name: ansible-shell
+        name: ansible-doom-emacs
   tags:
     - emacs
