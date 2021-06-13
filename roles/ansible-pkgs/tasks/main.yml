@@ -155,7 +155,7 @@
 
 - name: Install Mullvad VPN client
   become: true
-  shell: "yes | dpkg -i ~/Downloads/Mullvad*"
+  shell: "yes | dpkg -i /home/lino/Downloads/Mullvad*"
   tags:
     - vpn
 
