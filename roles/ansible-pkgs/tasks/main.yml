@@ -60,7 +60,7 @@
       - pass
       - qemu-system
       - rsync
-      - signal
+      - signal-desktop
       - smbclient
       - syncthing
       - syncthing-gtk
