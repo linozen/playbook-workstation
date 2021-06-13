@@ -14,12 +14,17 @@
   become: false
   shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 
-- name: Get asdf
+- name: Remove exisinting files
   become: false
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: /home/lino/.asdf
-    depth: 1
+  file:
+    src: "/home/{{ local_user.stdout }}/{{ item }}"
+    state: absent
+  loop:
+    - .zshrc
+    - .tool-versions
+    - .default-python-packages
+    - .default-npm-packages
+    - .default-golang-pkgs
 
 - name: Symlink relevant config files to playbook-workstation
   become: false
@@ -33,6 +38,13 @@
     - .default-python-packages
     - .default-npm-packages
     - .default-golang-pkgs
+
+- name: Get asdf
+  become: false
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: /home/lino/.asdf
+    depth: 1
 
 - name: Add asdf plugins
   become: false
