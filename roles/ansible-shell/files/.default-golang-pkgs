@@ -1,9 +1,9 @@
+github.com/cweill/gotests/...
+github.com/fatih/gomodifytags
 github.com/motemen/gore/cmd/gore
 github.com/stamblerre/gocode
+github.com/yory8/clipman
 golang.org/x/tools/cmd/godoc
 golang.org/x/tools/cmd/goimports
 golang.org/x/tools/cmd/gorename
 golang.org/x/tools/cmd/guru
-github.com/cweill/gotests/...
-github.com/fatih/gomodifytags
-github.com/yory8/clipman
