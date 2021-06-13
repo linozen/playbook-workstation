@@ -1,14 +1,4 @@
 ---
-- name: Install extensions and icons
-  become: yes
-  apt:
-    pkg:
-      - gnome-shell-extension-caffeine
-      - gnome-shell-extension-autohidetopbar
-      - gnome-shell-extension-dashtodock
-      - gnome-shell-extension-no-annoyance
-      - papirus-icon-theme
-
 - name: Copy background
   copy:
     src: space.png
