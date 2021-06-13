@@ -8,7 +8,7 @@ third_party_repos:
     repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
   - filename: "emacs"
     key_location: "http://emacs.ganneff.de/apt.key"
-    repo: "deb http://emacs.ganneff.de/ sid main"
+    repo: "deb http://emacs.ganneff.de/ buster main"
 
 mullvad_account_number: !vault |
   $ANSIBLE_VAULT;1.1;AES256
