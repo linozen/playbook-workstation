@@ -1,0 +1,37 @@
+---
+- name: Change user shell to zsh
+  become: true
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+
+- name: Get oh-my-zsh
+  shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+
+- name: Get asdf
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: /home/lino/.asdf
+    depth: 1
+
+- name: Symlink relevant config files to playbook-workstation
+  file:
+    src: "{{ ansible_env.HOME}}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/{{ item }}"
+    state: link
+  loop:
+    - .default-golang-pkgs
+    - .default-npm-packages
+    - .tool-versions
+    - .zshrc
+
+- name: Add Node.js team to keyring
+  shell: "bash -c '/home/lino/.asdf/plugins/node/bin/import-release-team-keyring'"
+
+- name: Install asdf languages
+  shell: "bash -c '/home/lino/.asdf/bin/asdf {{ item }}'"
+  loop:
+    - install python 3.9.2
+    - install golang 1.16
+    - install gohugo extended_0.83.1
+    - install nodejs lts
