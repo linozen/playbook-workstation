@@ -8,7 +8,7 @@ First, install a couple of essential packages:
 
 ```shell
 sudo apt-get update
-sudo apt-get install gnupg2 git curl pipenv
+sudo apt-get install gnupg2 git curl ansible
 ```
 
 Next, I restore my GPG keys using some simple scripts. See [this
