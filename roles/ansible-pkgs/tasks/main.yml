@@ -131,36 +131,24 @@
 
 - name: Get Mullvad VPN Signing Key
   shell: "gpg2 --keyserver pool.sks-keyservers.net --recv-keys A1198702FC3E0A09A9AE5B75D5A1D4F266DE8DDF"
-  tags:
-    - vpn
 
 - name: Get Mullvad VPN client
   get_url:
     url: "https://mullvad.net/download/app/deb/latest"
     dest: "{{ ansible_env.HOME }}/Downloads"
-  tags:
-    - vpn
 
 - name: Get Mullvad VPN client signing key
   get_url:
     url: "https://mullvad.net/download/app/deb/latest/signature"
     dest: "{{ ansible_env.HOME }}/Downloads"
-  tags:
-    - vpn
 
 - name: Get Mullvad VPN Signing Key
   shell: "gpg2 --verify {{ ansible_env.HOME }}/Downloads/MullvadVPN-*.asc"
-  tags:
-    - vpn
 
 - name: Install Mullvad VPN client
   become: true
   shell: "yes | dpkg -i /home/lino/Downloads/Mullvad*"
-  tags:
-    - vpn
 
 - name: Set Mullvad VPN account key
   become: true
   shell: "mullvad account set {{ mullvad_account_number }}"
-  tags:
-    - vpn
