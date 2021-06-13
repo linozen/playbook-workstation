@@ -6,43 +6,6 @@
     - name: run roles/ansible-borgbackup
       include_role:
         name: ansible-borgbackup
-      borg_repository:
-        - jq41lb6r@jq41lb6r.repo.borgbase.com:repo
-        - /media/lino/data/backup
-      borg_encryption_passphrase: !vault |
-        $ANSIBLE_VAULT;1.1;AES256
-        38386430656336383339636533666333396533613331336639383833656663623035323531393531
-        3062383063346638393733643432376466386434316335620a306466396232356264383330313264
-        34663563636136326265383939323332383534383134373130623365373537623366373961613936
-        3730396465343131300a613862333665343939636566343530663631323434386135353262373565
-        39326532613233303439383035643133383737626530373534623862353861636166
-      borg_source_directories:
-        # Most important; will restore
-        - /home/lino/Exocortex
-        - /home/lino/Projects
-        - /home/lino/Zotero
-        - /home/lino/.zotero
-        - /home/lino/.mail
-        - /home/lino/.mbsyncrc
-        - /home/lino/.evolution
-        - /home/lino/.doom.d
-        - /home/lino/.password-store
-        # Less important; won't restore
-        - /home/lino/.mozilla
-        - /home/lino/.gnupg
-        - /home/lino/.ssh
-        - /home/lino/.gitconfig
-      borg_retention_policy:
-        keep_hourly: 3
-        keep_daily: 7
-        keep_weekly: 4
-        keep_monthly: 6 - /home/lino/.config
-      borg_exclude_patterns:
-        - "*.tmp"
-        - "*.pyc"
-        - /home/*/node_modules
-        - /home/*/.stfolder
-        - /home/*/.cache
   tags:
     - backup
 
