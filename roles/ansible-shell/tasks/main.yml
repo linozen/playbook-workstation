@@ -54,6 +54,7 @@
     - nodejs https://github.com/asdf-vm/asdf-nodejs
     - golang https://github.com/kennyp/asdf-golang
     - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
+  ignore_errors: true
 
 - name: Add Node.js team to keyring
   become: false
@@ -67,3 +68,4 @@
     - nodejs lts
     - golang 1.16
     - gohugo extended_0.83.1
+  ignore_errors: true
