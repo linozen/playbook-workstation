@@ -16,6 +16,7 @@
   loop: "{{ third_party_repos }}"
 
 - name: Run the equivalent of "apt-get update"
+  become: true
   apt:
     update_cache: true
 
