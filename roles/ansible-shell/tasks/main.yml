@@ -62,7 +62,7 @@
 
 - name: Install asdf languages
   become: false
-  shell: "bash -c '/home/lino/{{ local_user.stdout }}/.asdf/bin/asdf install {{ item }}'"
+  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf install {{ item }}'"
   loop:
     - python 3.9.2
     - nodejs lts
