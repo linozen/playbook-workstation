@@ -15,6 +15,10 @@
     update_cache: true
   loop: "{{ third_party_repos }}"
 
+- name: Run the equivalent of "apt-get update"
+  apt:
+    update_cache: true
+
 - name: Install base packages
   become: true
   apt:
