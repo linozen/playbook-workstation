@@ -63,5 +63,6 @@ host. To set up automated backups using `borgmatic` on
 playbook
 
 ```bash
+git clone --recurse-submodules https://github.com/linozen/playbook-workstation.git
 ansible-playbook --ask-become-pass playbook.yml --tags backup
 ```
