@@ -16,7 +16,7 @@
   shell: make install chdir=/tmp/mu-1.4.15
 
 - name: init mail database
-  shell: "mu init -m /home/lino/.mail --my-address=linus@sehn.tech && mu index"
+  shell: "mu init --maildir {{ ansible_env.HOME }}/.mail --my-address=linus@sehn.tech --my-address=linus@fsfe.org && mu index"
 
 - name: Symlink relevant config files to playbook-workstation
   file:
