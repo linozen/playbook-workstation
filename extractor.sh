@@ -54,7 +54,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Restoring E-mails..."
     borg extract --strip-components 2 --list -p "$BORG_PATH::$BACKUP" home/lino/.evolution
     borg extract --strip-components 2 --list -p "$BORG_PATH::$BACKUP" home/lino/.mail
-    borg extract --strip-components 2 --list -p "$BORG_PATH::$BACKUP" home/lino/.mbsyncrc
 fi
 
 echo
