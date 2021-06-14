@@ -40,6 +40,7 @@
       - cmake
       - cron
       - curl
+      - dino-im
       - emacs-snapshot
       - exa
       - fd-find
@@ -93,7 +94,7 @@
       - ufw
       - virt-manager
       - vlc
-      - webext-browserpass
+      - webext-keepassxc-browser
       - webext-debianbuttons
       - webext-ublock-origin-chromium
       - webext-ublock-origin-firefox
