@@ -54,6 +54,8 @@
       - hunspell-en-gb
       - isync
       - latexmk
+      - libgmime-3.0
+      - libgmime-3.0-dev
       - libnfs-utils
       - libpoppler-glib-dev
       - libpoppler-private-dev
@@ -61,6 +63,7 @@
       - libreoffice-gtk3
       - libvirt-clients
       - libvirt-daemon-system
+      - libxapian-dev
       - llvm
       - lm-sensors
       - lmodern
