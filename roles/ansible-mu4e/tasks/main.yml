@@ -1,0 +1,25 @@
+---
+- name: extract mu4e into /tmp
+  unarchive:
+    src: https://github.com/djcb/mu/releases/download/1.4.15/mu-1.4.15.tar.xz
+    dest: /tmp/
+    remote_src: yes
+
+- name: autogen mu4e
+  shell: ./autogen.sh chdir=/tmp/mu-1.4.15
+
+- name: make mu4e
+  shell: make chdir=/tmp/mu-1.4.15
+
+- name: install mu4e
+  become: true
+  shell: make install chdir=/tmp/mu-1.4.15
+
+- name: init mail database
+  shell: "mu init -m /home/lino/.mail --my-address=linus@sehn.tech && mu index"
+
+- name: Symlink relevant config files to playbook-workstation
+  file:
+    src: "{{ ansible_env.HOME }}/Projects/playbook-workstation/roles/ansible-mu4e/files/.mbsyncrc"
+    dest: "{{ ansible_env.HOME }}/.mbsyncrc"
+    state: link
