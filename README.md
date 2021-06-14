@@ -112,3 +112,48 @@ following command will set it up for you:
 ```bash
 pipenv run ansible-playbook --ask-become-pass playbook.yml --tags emacs
 ```
+
+I restored my `~/.doom.d` directory from backup, so you would need to do the same if
+you don't want to start from a blank slate.
+
+If you want to enable `mu4e` to read your e-mail within Doom Emacs and are on
+Debian, chances are you need to install it from source. In order to do that,
+simply run:
+
+```bash
+pipenv run ansible-playbook --ask-become-pass playbook.yml --tags emacs,mu4e
+```
+
+### Setup Gnome
+
+The next two steps concern the Desktop Environment that we use, namely Gnome.
+
+#### Extensions
+
+First, we setup all the extensions we need. Simply look for the extension ID
+(found in the URL of the extension on https://extensions.gnome.org) and add it
+to the variable `gnome_extension_ids` [over here](host_vars/localhost.yaml).
+
+#### Further Configuration
+
+Since I'm lazy I dumped most of my configuration via `dconf dump /` and the role
+in this playbook, among some other tiny things, simply loads this config dump.
+In addition it adds a [nice dark
+theme](https://gitlab.com/tista500/plata-theme) and a [cool
+background](roles/ansible-gnome-config/files/space.png).
+
+To apply all of this, simply run:
+
+```bash
+pipenv run ansible-playbook --ask-become-pass playbook.yml --tags gnome
+```
+
+### Mounting things
+
+Finally, I mount a couple of NFS and a CIFS share. All the variables to do this
+are also found [here](host_vars/localhost.yaml). To mount the shares, simply
+run:
+
+```bash
+pipenv run ansible-playbook --ask-become-pass playbook.yml --tags mount
+```

@@ -66,14 +66,6 @@ gnome_extension_ids:
   # Dash to Dock
   - 307
 
-mount_points:
-  - /home/lino/Syno/audio
-  - /home/lino/Syno/video
-  - /home/lino/Syno/photo
-  - /home/lino/Syno/share
-  - /home/lino/Syno/borg
-  - /home/lino/Syno/archive
-
 # List of NFS shares
 nfs_share_mounts:
   - path: /home/lino/Syno/audio
@@ -90,7 +82,11 @@ nfs_share_mounts:
 nfs_version: 4
 nfs_mount_opts: rsize=8192,wsize=8192,timeo=14,intr
 
-# CIFS
+# List of CIFS shares
+samba_share_mounts:
+  - path: /home/lino/Syno/archive
+    location: //192.168.178.11/archive
+
 samba_share_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   38393631623631393232343230353134643435663832333361373035363037633637646333386166
@@ -98,7 +94,3 @@ samba_share_password: !vault |
   65313833353431666338383661663030636333623831636632363661343966633734666662316236
   3638636332343235640a376538636561353031643439393965333135616465366134303637333064
   38376463326361663731666234356435353038656430613566313639303239616538
-
-samba_share_mounts:
-  - path: /home/lino/Syno/archive
-    location: //192.168.178.11/archive
