@@ -37,6 +37,16 @@
   tags:
     - emacs
 
+- name: Install mu4e
+  hosts: all
+  tasks:
+    - name: run roles/ansible-mu4e
+      include_role:
+        name: ansible-mu4e
+  tags:
+    - emacs
+    - mu4e
+
 - name: Install Gnome Shell extensions
   hosts: all
   tasks:
@@ -54,3 +64,12 @@
         name: ansible-gnome-config
   tags:
     - gnome
+
+- name: Mount CIFS and NFS shares
+  hosts: all
+  tasks:
+    - name: run roles/ansible-mount
+      include_role:
+        name: ansible-mount
+  tags:
+    - mount
