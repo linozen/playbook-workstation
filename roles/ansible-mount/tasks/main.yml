@@ -3,12 +3,6 @@
 # automatically. This avoids problems where the module tries to change
 # permissions on an existing directory
 
-# - name: Make sure folder to mount to exist
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#   loop: "{{ mount_points }}"
-#
 - name: Get the username running the deploy
   become: false
   local_action: command whoami
