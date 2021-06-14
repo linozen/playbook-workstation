@@ -3,20 +3,19 @@
 # automatically. This avoids problems where the module tries to change
 # permissions on an existing directory
 
-- name: make sure folder to mount to exist
-  file:
-    path: "{{ item }}"
-    state: directory
-  loop:
-    - /home/lino/Syno/audio
-    - /home/lino/Syno/video
-    - /home/lino/Syno/photo
-    - /home/lino/Syno/share
-    - /home/lino/Syno/borg
-    - /home/lino/Syno/archive
+# - name: Make sure folder to mount to exist
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#   loop: "{{ mount_points }}"
+#
+- name: Get the username running the deploy
+  become: false
+  local_action: command whoami
+  register: local_user
 
-- name: test
-  become: yes
+- name: Mount nfs shares
+  become: true
   mount:
     fstype: nfs
     state: mounted
@@ -25,26 +24,19 @@
     src: "{{ item.location }}"
   with_items: "{{ nfs_share_mounts }}"
 
-- name: copy .smb
+- name: Copy .smb to correct location
   become: true
-  copy:
-    src: .smb
+  template:
+    src: .smb.j2
     dest: "/root/.smb"
+    mode: 0600
 
-- name: secure .smb
-  become: true
-  shell: chmod 600 /root/.smb
-
-- name: edit /root/.smb such that its
-  pause:
-    prompt: "make sure credentials at /root/.smb are correct"
-
-- name: mount cifs shares
+- name: Mount cifs shares
   become: true
   mount:
     fstype: cifs
     state: mounted
     path: "{{ item.path }}"
-    opts: "credentials=/root/.smb,vers=3.0"
+    opts: "credentials=/root/.smb,vers=3.0,uid={{ local_user.stdout}},forceuid,gid={{ local_user.stdout }},forcegid"
     src: "{{ item.location }}"
   with_items: "{{ samba_share_mounts }}"
