@@ -1,9 +1,0 @@
-- name: Install zotero
-  become: yes
-  shell: wget -qO- https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
-# - name: Install calibre
-#   shell: wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sh /dev/stdin install_dir=~/.local/bin isolated=y
-
-# - name: Enable firewall upon completion
-#   pause:
-#     prompt: "Use ufw to enable firewall and only allow syntching and xmpp (5222) traffic"
