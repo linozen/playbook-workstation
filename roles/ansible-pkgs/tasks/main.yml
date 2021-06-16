@@ -54,6 +54,7 @@
       - hunspell-en-gb
       - isync
       - latexmk
+      - libbz2-dev
       - libgmime-3.0
       - libgmime-3.0-dev
       - libnfs-utils
