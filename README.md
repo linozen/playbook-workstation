@@ -150,10 +150,23 @@ pipenv run ansible-playbook --ask-become-pass playbook.yml --tags gnome
 
 ### Mounting things
 
-Finally, I mount a couple of NFS and a CIFS share. All the variables to do this
+Sometimes, I mount a couple of NFS and a CIFS share. All the variables to do this
 are also found [here](host_vars/localhost.yaml). To mount the shares, simply
 run:
 
 ```bash
 pipenv run ansible-playbook --ask-become-pass playbook.yml --tags mount
 ```
+
+### Install Docker in Rooless Mode
+
+Docker is a real pleasure to use when you know it's capabilities are restricted
+to a `dockeruser` and not `root`. Run 
+
+```bash
+pipenv run ansible-playbook --ask-become-pass playbook.yml --tags docker
+```
+
+to install Docker in rootless mode. Shout out to Thomas Sjögren for [this
+wonderful Ansible role](https://github.com/konstruktoid/ansible-docker-rootless)
+that I use here. 
