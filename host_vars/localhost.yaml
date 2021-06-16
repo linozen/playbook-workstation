@@ -9,6 +9,12 @@ third_party_repos:
   - filename: "emacs"
     key_location: "http://emacs.ganneff.de/apt.key"
     repo: "deb http://emacs.ganneff.de/ buster main"
+  - filename: "wire"
+    key_location: "https://wire-app.wire.com/linux/releases.key"
+    repo: "deb [arch=amd64] https://wire-app.wire.com/linux/debian stable main"
+  - filename: "teams"
+    key_location: "https://packages.microsoft.com/keys/microsoft.asc"
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main"
 
 mullvad_account_number: !vault |
   $ANSIBLE_VAULT;1.1;AES256
