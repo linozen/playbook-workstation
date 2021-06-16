@@ -119,16 +119,15 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias c="clear"
-alias reload="source ~/.zshrc"
-alias reload-e="systemctl --user restart emacs.service && doom sync && systemctl --user restart emacs.service"
-alias alu="sudo apt list --upgradeable"
 alias aar="sudo apt autoremove"
-
+alias alu="sudo apt list --upgradeable"
+alias c="clear"
+alias docker='sudo XDG_RUNTIME_DIR="/run/user/1001" DOCKER_HOST="unix:///run/user/1001/docker.sock" /home/dockeruser/bin/docker'
 alias e="emacsclient -t"
 alias ee="emacsclient -n -c"
-
 alias img-opt="$HOME/.img-optimize/optimize.sh"
+alias reload-e="systemctl --user restart emacs.service && doom sync && systemctl --user restart emacs.service"
+alias reload="source ~/.zshrc"
 
 # a simple python config
 export WORKON_HOME=$HOME/.virtualenvs

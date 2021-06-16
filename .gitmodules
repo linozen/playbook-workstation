@@ -4,3 +4,6 @@
 [submodule "roles/ansible-gnome-extensions"]
 	path = roles/ansible-gnome-extensions
 	url = git@github.com:linozen/ansible-gnome-extensions.git
+[submodule "roles/ansible-docker-rootless"]
+	path = roles/ansible-docker-rootless
+	url = https://github.com/linozen/ansible-docker-rootless.git
