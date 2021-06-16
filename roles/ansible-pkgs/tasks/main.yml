@@ -61,6 +61,8 @@
       - libpoppler-private-dev
       - libreoffice
       - libreoffice-gtk3
+      - libtool
+      - libtool-bin
       - libvirt-clients
       - libvirt-daemon-system
       - libxapian-dev
