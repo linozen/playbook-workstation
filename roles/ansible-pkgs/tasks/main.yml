@@ -109,6 +109,7 @@
       - wget
       - xdg-utils
       - xdotool
+      - yamllint
       - zotero
       - zsh
 
