@@ -1,0 +1,5 @@
+---
+docker_user: dockeruser
+docker_compose_release: "1.29.2"
+docker_compose_url: "https://github.com/docker/compose/releases/download"
+docker_compose_release_shasum: "f3f10cf3dbb8107e9ba2ea5f23c1d2159ff7321d16f0a23051d68d8e2547b323"

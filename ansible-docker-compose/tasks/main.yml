@@ -1,0 +1,41 @@
+---
+- name: Register "{{ docker_user }}" info
+  become: "yes"
+  user:
+    name: "{{ docker_user }}"
+  check_mode: "yes"
+  register: docker_user_info
+
+- name: Download docker-compose-{{ docker_release }}.tgz
+  become: "yes"
+  become_user: "{{ docker_user }}"
+  get_url:
+    url: "{{ docker_compose_url }}/{{ docker_compose_release }}/docker-compose-Linux-x86_64"
+    dest: "{{ docker_user_info.home }}/bin/docker-compose"
+    checksum: "sha256:{{ docker_compose_release_shasum }}"
+    mode: 0755
+  tags:
+    - docker-compose
+
+- name: Add alias for docker-compose
+  vars:
+    sudo_alias: >
+      alias docker-compose='sudo XDG_RUNTIME_DIR="/run/user/{{ docker_user_info.uid }}"
+      DOCKER_HOST="unix:///run/user/{{ docker_user_info.uid }}/docker.sock"
+      {{ docker_user_info.home }}/bin/docker-compose'
+
+  block:
+    - name: stat {{ ansible_env.HOME }}/.bashrc
+      stat:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+      register: user_bashrc
+
+    - name: add rootless docker alias to {{ ansible_env.HOME }}/.bashrc
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.bashrc"
+        line: "{{ sudo_alias }}"
+        regexp: "^alias docker-compose="
+      when: user_bashrc.stat.exists
+
+- name: Remount /tmp with exec
+  shell: mount /tmp -o remount,exec
