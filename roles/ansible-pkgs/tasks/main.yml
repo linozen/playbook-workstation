@@ -42,6 +42,8 @@
       - curl
       - dino-im
       - emacs-snapshot
+      - evolution
+      - evolution-ews
       - exa
       - fd-find
       - firefox-esr
