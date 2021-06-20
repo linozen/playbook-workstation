@@ -73,12 +73,3 @@
         name: ansible-mount
   tags:
     - mount
-
-- name: Install Docker in Rootless mode
-  hosts: all
-  tasks:
-    - name: run roles/ansible-docker-rootless
-      include_role:
-        name: ansible-docker-rootless
-  tags:
-    - docker
