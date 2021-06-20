@@ -41,6 +41,8 @@
       - cron
       - curl
       - dino-im
+      - docker.io
+      - docker-compose
       - emacs-snapshot
       - evolution
       - evolution-ews
@@ -57,7 +59,7 @@
       - isync
       - latexmk
       - libbz2-dev
-      - libgmime-3.0
+      - libgmime-3.0-0
       - libgmime-3.0-dev
       - libnfs-utils
       - libpoppler-glib-dev
