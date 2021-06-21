@@ -4,70 +4,83 @@
   local_action: command whoami
   register: local_user
 
-- name: Change user shell to zsh
-  become: true
-  user:
-    name: "{{ local_user.stdout }}"
-    shell: /bin/zsh
+# - name: Change user shell to zsh
+#   become: true
+#   user:
+#     name: "{{ local_user.stdout }}"
+#     shell: /bin/zsh
 
-- name: Get oh-my-zsh
-  become: false
-  shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+# - name: Get oh-my-zsh
+#   become: false
+#   shell: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 
-- name: Remove exisinting files
-  become: false
-  file:
-    path: "/home/{{ local_user.stdout }}/{{ item }}"
-    state: absent
-  loop:
-    - .zshrc
-    - .tool-versions
-    - .default-python-packages
-    - .default-npm-packages
-    - .default-golang-pkgs
+# - name: Remove exisinting files
+#   become: false
+#   file:
+#     path: "/home/{{ local_user.stdout }}/{{ item }}"
+#     state: absent
+#   loop:
+#     - .zshrc
+#     - .tool-versions
+#     - .default-python-packages
+#     - .default-npm-packages
+#     - .default-golang-pkgs
 
-- name: Symlink relevant config files to playbook-workstation
-  become: false
-  file:
-    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
-    dest: "/home/{{ local_user.stdout }}/{{ item }}"
-    state: link
-  loop:
-    - .zshrc
-    - .tool-versions
-    - .default-python-packages
-    - .default-npm-packages
-    - .default-golang-pkgs
-
-- name: Get asdf
+- name: Install zsh-autosuggestions
   become: false
   git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: "/home/{{ local_user.stdout }}/.asdf"
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "/home/{{ local_user.stdout }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
     depth: 1
 
-- name: Add asdf plugins
+- name: Install zsh-syntax-highlighting
   become: false
-  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf plugin add {{ item }}'"
-  loop:
-    - python https://github.com/danhper/asdf-python
-    - nodejs https://github.com/asdf-vm/asdf-nodejs
-    - golang https://github.com/kennyp/asdf-golang
-    - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
-    - direnv https://github.com/asdf-community/asdf-direnv
-  ignore_errors: true
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting
+    dest: "/home/{{ local_user.stdout }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    depth: 1
+# - name: Symlink relevant config files to playbook-workstation
+#   become: false
+#   file:
+#     src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
+#     dest: "/home/{{ local_user.stdout }}/{{ item }}"
+#     state: link
+#   loop:
+#     - .zshrc
+#     - .tool-versions
+#     - .default-python-packages
+#     - .default-npm-packages
+#     - .default-golang-pkgs
 
-- name: Add Node.js team to keyring
-  become: false
-  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/plugins/nodejs/bin/import-release-team-keyring'"
+# - name: Get asdf
+#   become: false
+#   git:
+#     repo: https://github.com/asdf-vm/asdf.git
+#     dest: "/home/{{ local_user.stdout }}/.asdf"
+#     depth: 1
 
-- name: Install asdf languages
-  become: false
-  shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf install {{ item }}'"
-  loop:
-    - python 3.9.2
-    - nodejs lts
-    - golang 1.16
-    - gohugo extended_0.83.1
-    - direnv 2.28.0
-  ignore_errors: true
+# - name: Add asdf plugins
+#   become: false
+#   shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf plugin add {{ item }}'"
+#   loop:
+#     - python https://github.com/danhper/asdf-python
+#     - nodejs https://github.com/asdf-vm/asdf-nodejs
+#     - golang https://github.com/kennyp/asdf-golang
+#     - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
+#     - direnv https://github.com/asdf-community/asdf-direnv
+#   ignore_errors: true
+
+# - name: Add Node.js team to keyring
+#   become: false
+#   shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/plugins/nodejs/bin/import-release-team-keyring'"
+
+# - name: Install asdf languages
+#   become: false
+#   shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf install {{ item }}'"
+#   loop:
+#     - python 3.9.2
+#     - nodejs lts
+#     - golang 1.16
+#     - gohugo extended_0.83.1
+#     - direnv 2.28.0
+#   ignore_errors: true
