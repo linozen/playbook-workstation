@@ -122,7 +122,9 @@ fi
 alias aar="sudo apt autoremove"
 alias alu="sudo apt list --upgradeable"
 alias c="clear"
-alias docker='sudo XDG_RUNTIME_DIR="/run/user/1001" DOCKER_HOST="unix:///run/user/1001/docker.sock" /home/dockeruser/bin/docker'
+alias d="sudo docker"
+alias dsp="sudo docker system prune"
+alias dspa="sudo docker system prune -a"
 alias e="emacsclient -t"
 alias ee="emacsclient -n -c"
 alias img-opt="$HOME/.img-optimize/optimize.sh"
