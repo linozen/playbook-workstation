@@ -157,16 +157,3 @@ run:
 ```bash
 pipenv run ansible-playbook --ask-become-pass playbook.yml --tags mount
 ```
-
-### Install Docker in Rooless Mode
-
-Docker is a real pleasure to use when you know it's capabilities are restricted
-to a `dockeruser` and not `root`. Run 
-
-```bash
-pipenv run ansible-playbook --ask-become-pass playbook.yml --tags docker
-```
-
-to install Docker in rootless mode. Shout out to Thomas Sjögren for [this
-wonderful Ansible role](https://github.com/konstruktoid/ansible-docker-rootless)
-that I use here. 
