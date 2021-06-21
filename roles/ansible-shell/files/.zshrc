@@ -76,23 +76,24 @@ setopt HIST_IGNORE_ALL_DUPS
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git
-         autojump
-         debian
-         fzf
-         per-directory-history
-         zsh-autosuggestions
-         asdf
-         docker
-         docker-compose
-         colored-man-pages
-         rsync
-         ufw
-         systemadmin
-         virtualenv
-         python
-         zsh-syntax-highlighting
-        )
+plugins=(
+    asdf
+    autojump
+    colored-man-pages
+    debian
+    docker
+    docker-compose
+    fzf
+    git
+    per-directory-history
+    python
+    rsync
+    systemadmin
+    ufw
+    virtualenv
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -131,6 +132,10 @@ alias ee="emacsclient -n -c"
 alias img-opt="$HOME/.img-optimize/optimize.sh"
 alias reload-e="systemctl --user restart emacs.service && doom sync && systemctl --user restart emacs.service"
 alias reload="source ~/.zshrc"
+
+# plugin configuration
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#73797e"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # a simple python config
 export WORKON_HOME=$HOME/.virtualenvs
