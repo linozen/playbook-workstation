@@ -61,11 +61,13 @@
       - libbz2-dev
       - libgmime-3.0-0
       - libgmime-3.0-dev
+      - liblzma-dev
       - libnfs-utils
       - libpoppler-glib-dev
       - libpoppler-private-dev
       - libreoffice
       - libreoffice-gtk3
+      - libsqlite3-dev
       - libtool
       - libtool-bin
       - libvirt-clients
