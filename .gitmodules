@@ -1,6 +1,0 @@
-[submodule "roles/ansible-borgbackup"]
-	path = roles/ansible-borgbackup
-	url = git@github.com:linozen/ansible-borgbackup.git
-[submodule "roles/ansible-gnome-extensions"]
-	path = roles/ansible-gnome-extensions
-	url = git@github.com:linozen/ansible-gnome-extensions.git
