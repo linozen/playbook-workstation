@@ -173,9 +173,14 @@ function apt-history(){
       esac
 } 
 
-# path
+# Path
 export PATH=~/.emacs.d/bin:$PATH
 export PATH=~/.local/bin:$PATH
+# Docker
+export PATH=/home/lino/.local/bin/docker:$PATH
+export DOCKER_BIN=/home/lino/.local/bin/docker
+export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export XDG_RUNTIME_DIR=/run/user/1000
 
 # Hook direnv into your shell.
 eval "$(asdf exec direnv hook zsh)"

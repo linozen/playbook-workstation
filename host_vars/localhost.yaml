@@ -27,6 +27,7 @@ mullvad_account_number: !vault |
 borg_repository:
   - jq41lb6r@jq41lb6r.repo.borgbase.com:repo
   - /media/lino/data/backup
+
 borg_encryption_passphrase: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   38386430656336383339636533666333396533613331336639383833656663623035323531393531
