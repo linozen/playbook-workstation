@@ -41,7 +41,9 @@
       - cron
       - curl
       - dino-im
-      - docker.io
+      - dbus-user-session
+      - fuse-overlayfs
+      - slirp4netns
       - docker-compose
       - emacs-snapshot
       - evolution

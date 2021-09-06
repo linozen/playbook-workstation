@@ -148,6 +148,17 @@ To apply all of this, simply run:
 pipenv run ansible-playbook --ask-become-pass playbook.yml --tags gnome
 ```
 
+### Install Docker in Rooless Mode
+
+Docker is a real pleasure to use when you know it's capabilities are restricted
+to your local user and not `root`. Simply run:
+
+```bash
+curl -fsSL https://get.docker.com/rootless | zsh
+```
+
+to install Docker in rootless mode. For more information, see [here](https://docs.docker.com/engine/security/rootless/).
+
 ### Mounting things
 
 Sometimes, I mount a couple of NFS and a CIFS share. All the variables to do this
