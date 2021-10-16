@@ -5,7 +5,6 @@
   register: local_user
 
 - name: Change user shell to zsh
-  become: true
   user:
     name: "{{ local_user.stdout }}"
     shell: /bin/zsh
