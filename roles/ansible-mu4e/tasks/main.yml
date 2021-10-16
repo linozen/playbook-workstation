@@ -1,20 +1,4 @@
 ---
-- name: extract mu4e into /tmp
-  unarchive:
-    src: https://github.com/djcb/mu/releases/download/1.4.15/mu-1.4.15.tar.xz
-    dest: /tmp/
-    remote_src: yes
-
-- name: autogen mu4e
-  shell: ./autogen.sh chdir=/tmp/mu-1.4.15
-
-- name: make mu4e
-  shell: make chdir=/tmp/mu-1.4.15
-
-- name: install mu4e
-  become: true
-  shell: make install chdir=/tmp/mu-1.4.15
-
 - name: init mail database
   shell: "mu init --maildir {{ ansible_env.HOME }}/.mail --my-address=linus@sehn.tech --my-address=linus@fsfe.org && mu index"
 
