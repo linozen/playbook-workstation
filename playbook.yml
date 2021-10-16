@@ -24,7 +24,7 @@
   tasks:
     - name: run roles/ansible-zsh
       include_role:
-        name: ansible-shell
+        name: ansible-zsh
   tags:
     - zsh
     - shell
