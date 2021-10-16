@@ -22,10 +22,11 @@
   hosts: all
   become: true
   tasks:
-    - name: run roles/ansible-shell
+    - name: run roles/ansible-zsh
       include_role:
         name: ansible-shell
   tags:
+    - zsh
     - shell
 
 - name: Setup (Doom) Emacs
