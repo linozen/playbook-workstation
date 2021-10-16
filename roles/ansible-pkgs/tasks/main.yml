@@ -36,6 +36,7 @@
       - dbus-user-session
       - dino-im
       - docker-compose
+      - emacs-snapshot
       - evolution
       - evolution-ews
       - exa
