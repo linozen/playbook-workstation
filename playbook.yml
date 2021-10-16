@@ -20,7 +20,6 @@
 
 - name: Setup shell
   hosts: all
-  become: true
   tasks:
     - name: run roles/ansible-zsh
       include_role:
