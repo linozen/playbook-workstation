@@ -92,6 +92,7 @@
       - fcitx-modules
       - fcitx-table
       - fortune-mod
+      - geary
       - gnome-boxes
       - gnome-games
       - goldendict
@@ -134,7 +135,10 @@
     scope: user
 
 - name: Get Mullvad VPN Signing Key
-  shell: "gpg2 --keyserver pool.sks-keyservers.net --recv-keys A1198702FC3E0A09A9AE5B75D5A1D4F266DE8DDF"
+  shell: "wget https://mullvad.net/media/mullvad-code-signing.asc -O /tmp/mullvad-code-signing.asc"
+
+- name: Get Mullvad VPN Signing Key
+  shell: "gpg2 --import /tmp/mullvad-code-signing.asc"
 
 - name: Get Mullvad VPN client
   get_url:
