@@ -43,7 +43,7 @@
 - name: Symlink relevant config files to playbook-workstation
   become: false
   file:
-    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-shell/files/{{ item }}"
+    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-zsh/files/{{ item }}"
     dest: "/home/{{ local_user.stdout }}/{{ item }}"
     state: link
   loop:
@@ -79,9 +79,8 @@
   become: false
   shell: "bash -c '/home/{{ local_user.stdout }}/.asdf/bin/asdf install {{ item }}'"
   loop:
-    - python 3.9.2
+    - python 3.10.0
     - nodejs lts
-    - golang 1.16
-    - gohugo extended_0.83.1
-    - direnv 2.28.0
+    - golang 1.17
+    - gohugo extended_0.88.1
   ignore_errors: true
