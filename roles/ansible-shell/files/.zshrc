@@ -83,10 +83,12 @@ plugins=(
     debian
     docker
     docker-compose
+    dotenv
     fzf
     git
     per-directory-history
     python
+    poetry
     rsync
     systemadmin
     ufw
@@ -132,6 +134,7 @@ alias ee="emacsclient -n -c"
 alias img-opt="$HOME/.img-optimize/optimize.sh"
 alias reload-e="systemctl --user restart emacs.service && doom sync && systemctl --user restart emacs.service"
 alias reload="source ~/.zshrc"
+alias n="nautilus ."
 
 # plugin configuration
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#73797e"
@@ -174,16 +177,31 @@ function apt-history(){
 } 
 
 # Path
-export PATH=~/.emacs.d/bin:$PATH
-export PATH=~/.local/bin:$PATH
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # Docker
-export PATH=/home/lino/.local/bin/docker:$PATH
-export DOCKER_BIN=/home/lino/.local/bin/docker
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
-export XDG_RUNTIME_DIR=/run/user/1000
+export PATH="$HOME/.local/bin/docker:$PATH"
+export DOCKER_BIN="$HOME.local/bin/docker"
+export DOCKER_HOST="unix:///run/user/1000/docker.sock"
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
+export XDG_RUNTIME_DIR="/run/user/1000"
+# qt5ct
+export QT_QPA_PLATFORMTHEME="qt5ct"
 
 # Hook direnv into your shell.
 eval "$(asdf exec direnv hook zsh)"
 
 # A shortcut for asdf managed direnv.
 direnv() { asdf exec direnv "$@"; }
+
+# trellis-cli autocompletion
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/lino/.local/bin/trellis trellis
+# ... and auto-activation of env
+eval "$(trellis shell-init zsh)"
+
+# tilix
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte-2.91.sh
+fi
