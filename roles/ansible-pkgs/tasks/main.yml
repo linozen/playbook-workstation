@@ -24,33 +24,24 @@
   become: true
   apt:
     pkg:
-      - acl
-      - apparmor-profiles
-      - apparmor-profiles-extra
-      - apparmor-utils
-      - audispd-plugins
-      - auditd
       - autojump
       - biber
       - bleachbit
       - build-essential
-      - calibre
       - chromium
       - cifs-utils
       - cmake
       - cron
       - curl
-      - dino-im
       - dbus-user-session
-      - fuse-overlayfs
-      - slirp4netns
+      - dino-im
       - docker-compose
-      - emacs-snapshot
       - evolution
       - evolution-ews
       - exa
       - fd-find
       - firefox-esr
+      - fuse-overlayfs
       - fzf
       - graphviz
       - html2text
@@ -59,43 +50,16 @@
       - hunspell-de-de
       - hunspell-en-gb
       - isync
-      - latexmk
-      - libbz2-dev
-      - libgmime-3.0-0
-      - libgmime-3.0-dev
-      - liblzma-dev
-      - libnfs-utils
-      - libpoppler-glib-dev
-      - libpoppler-private-dev
-      - libreoffice
-      - libreoffice-gtk3
-      - libsqlite3-dev
-      - libtool
-      - libtool-bin
-      - libvirt-clients
-      - libvirt-daemon-system
-      - libxapian-dev
-      - llvm
-      - lm-sensors
-      - lmodern
-      - locales
-      - locate
-      - make
-      - net-tools
-      - nfs-common
-      - ntp
-      - openssh-client
       - papirus-icon-theme
       - pass
-      - qemu-system
       - ripgrep
       - rsync
       - shellcheck
       - signal-desktop
+      - slirp4netns
       - smbclient
       - sqlite3
       - syncthing
-      - syncthing-gtk
       - texinfo
       - texlive-base
       - texlive-font-utils
@@ -106,10 +70,8 @@
       - texlive-science
       - torbrowser-launcher
       - ufw
-      - virt-manager
       - vlc
       - webext-keepassxc-browser
-      - webext-debianbuttons
       - webext-ublock-origin-chromium
       - webext-ublock-origin-firefox
       - wget
@@ -144,7 +106,6 @@
       - mozc-server
       - mozc-utils
       - rhythmbox
-      - thunderbird
       - uim-mozc
       - xiterm+thai
       - xterm
