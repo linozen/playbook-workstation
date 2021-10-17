@@ -28,6 +28,16 @@
     - zsh
     - shell
 
+- name: Setup languages
+  hosts: all
+  tasks:
+    - name: run roles/ansible-asdf
+      include_role:
+        name: ansible-asdf
+  tags:
+    - asdf
+    - languages
+
 - name: Setup (Doom) Emacs
   hosts: all
   tasks:
