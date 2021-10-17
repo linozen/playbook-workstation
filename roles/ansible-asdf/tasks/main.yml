@@ -27,7 +27,7 @@
 - name: Symlink relevant config files to playbook-workstation
   become: false
   file:
-    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-zsh/files/{{ item }}"
+    src: "/home/{{ local_user.stdout }}/Projects/playbook-workstation/roles/ansible-asdf/files/{{ item }}"
     dest: "/home/{{ local_user.stdout }}/{{ item }}"
     state: link
   loop:
