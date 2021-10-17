@@ -50,6 +50,9 @@
       - hunspell-de-de
       - hunspell-en-gb
       - isync
+      - libssl
+      - teams
+      - wire-desktop
       - papirus-icon-theme
       - pass
       - ripgrep
