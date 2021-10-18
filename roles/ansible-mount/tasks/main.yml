@@ -14,15 +14,15 @@
     fstype: nfs
     state: mounted
     name: "{{ item.path }}"
-    opts: "vers={{ nfs_version }},{{ nfs_mount_opts }}"
+    opts: "vers={{ nfs_version }},{{ nfs_mount_opts }},user"
     src: "{{ item.location }}"
   with_items: "{{ nfs_share_mounts }}"
 
 - name: Copy .smb to correct location
-  become: true
+  become: false
   template:
     src: .smb.j2
-    dest: "/root/.smb"
+    dest: "/home/{{ local_user.stdout }}/.smb"
     mode: 0600
 
 - name: Mount cifs shares
@@ -31,6 +31,6 @@
     fstype: cifs
     state: mounted
     path: "{{ item.path }}"
-    opts: "credentials=/root/.smb,vers=3.0,uid={{ local_user.stdout}},forceuid,gid={{ local_user.stdout }},forcegid"
+    opts: "credentials=/home/{{ local_user.stdout }}/.smb,vers=3.0,uid={{ local_user.stdout}},forceuid,gid={{ local_user.stdout }},forcegid"
     src: "{{ item.location }}"
   with_items: "{{ samba_share_mounts }}"

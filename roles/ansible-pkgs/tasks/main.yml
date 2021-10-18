@@ -1,4 +1,11 @@
 ---
+- name: Update all packages to their latest version
+  become: true
+  apt:
+    name: "*"
+    state: latest
+    update_cache: true
+
 - name: Add third-party repository keys
   become: true
   apt_key:
@@ -15,105 +22,40 @@
     update_cache: true
   loop: "{{ third_party_repos }}"
 
-- name: Run the equivalent of "apt-get update"
+- name: Add third-party repositories (ppa)
   become: true
-  apt:
+  apt_repository:
+    repo: "{{ item.repo }}"
+    codename: "{{ item.codename }}"
     update_cache: true
+  loop: "{{ ppas }}"
 
 - name: Install base packages
   become: true
   apt:
-    pkg:
-      - autojump
-      - biber
-      - bleachbit
-      - build-essential
-      - chromium-browser
-      - cifs-utils
-      - cmake
-      - cron
-      - curl
-      - dbus-user-session
-      - dino-im
-      - docker-compose
-      - emacs-snapshot
-      - evolution
-      - evolution-ews
-      - exa
-      - fd-find
-      - fuse-overlayfs
-      - fzf
-      - graphviz
-      - html2text
-      - htop
-      - hunspell
-      - hunspell-de-de
-      - hunspell-en-gb
-      - isync
-      - libssl
-      - teams
-      - wire-desktop
-      - papirus-icon-theme
-      - pass
-      - ripgrep
-      - rsync
-      - shellcheck
-      - signal-desktop
-      - slirp4netns
-      - smbclient
-      - sqlite3
-      - syncthing
-      - texinfo
-      - texlive-base
-      - texlive-font-utils
-      - texlive-fonts-extra
-      - texlive-humanities
-      - texlive-lang-german
-      - texlive-publishers
-      - texlive-science
-      - torbrowser-launcher
-      - ufw
-      - vlc
-      - webext-keepassxc-browser
-      - webext-ublock-origin-chromium
-      - webext-ublock-origin-firefox
-      - wget
-      - xdg-utils
-      - xdotool
-      - yamllint
-      - zotero
-      - zsh
+    state: present
+    update_cache: true
+    pkg: "{{ to_install }}"
 
 - name: Remove unnecessary packages
   become: true
   apt:
     state: absent
-    pkg:
-      - anthy
-      - fcitx
-      - fcitx-bin
-      - fcitx-data
-      - fcitx-modules
-      - fcitx-table
-      - fortune-mod
-      - geary
-      - gnome-boxes
-      - gnome-games
-      - goldendict
-      - hdate
-      - hdate-applet
-      - ibus-libpinyin
-      - kasumi
-      - khmerconverter
-      - mlterm
-      - mlterm-tiny
-      - mozc-data
-      - mozc-server
-      - mozc-utils
-      - rhythmbox
-      - uim-mozc
-      - xiterm+thai
-      - xterm
+    purge: true
+    update_cache: true
+    pkg: "{{ to_remove }}"
+
+- name: Install flatpacks from flathub.org
+  shell: flatpak install -y --noninteractive flathub {{ item }}
+  with_items:
+    - org.chromium.Chromium
+    - com.github.tchx84.Flatseal
+    - nl.hjdskes.gcolor3
+    - com.github.huluti.Curtail
+    - org.gnome.gitlab.YaLTeR.VideoTrimmer
+    - flathub net.ankiweb.Anki
+    - im.riot.Riot
+    - com.wire.WireDesktop
 
 - name: Remove useless packages from the cache
   become: true
@@ -137,6 +79,23 @@
     enabled: true
     state: started
     scope: user
+
+- name: Disable rootful Docker daemon
+  become: true
+  service:
+    name: docker.service
+    enabled: false
+    state: stopped
+
+- name: Disable rootful Docker socket
+  become: true
+  service:
+    name: docker.socket
+    enabled: false
+    state: stopped
+
+- name: Install rootless Docker
+  shell: "dockerd-rootless-setuptool.sh install"
 
 - name: Get Mullvad VPN Signing Key
   shell: "wget https://mullvad.net/media/mullvad-code-signing.asc -O /tmp/mullvad-code-signing.asc"

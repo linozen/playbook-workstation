@@ -5,7 +5,7 @@
 IMAPAccount mailbox
 Host imap.mailbox.org
 User linus@sehn.tech
-PassCmd "pass mailbox.org/local"
+PassCmd "pass mailbox.org"
 SSLType IMAPS
 SSLVersions TLSv1.2
 CertificateFile /etc/ssl/certs/ca-certificates.crt
