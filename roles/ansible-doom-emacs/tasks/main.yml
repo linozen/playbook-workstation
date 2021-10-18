@@ -12,20 +12,20 @@
 - name: Refresh fonts cache
   shell: "fc-cache -f -v"
 
-- name: Remove .emacs.d
-  shell: rm -rf /home/{{ local_user.stdout }}/.emacs.d
+# - name: Remove .emacs.d
+#   shell: rm -rf /home/{{ local_user.stdout }}/.emacs.d
 
-- name: Clone doom emacs and private configuration
-  git:
-    repo: "https://github.com/hlissner/doom-emacs.git"
-    dest: "~/.emacs.d"
-    depth: 1
-    accept_hostkey: true
+# - name: Clone doom emacs and private configuration
+#   git:
+#     repo: "https://github.com/hlissner/doom-emacs.git"
+#     dest: "~/.emacs.d"
+#     depth: 1
+#     accept_hostkey: true
 
-- name: Install doom
-  shell: "yes | ~/.emacs.d/bin/doom install"
-  retries: 3
-  delay: 1
+# - name: Install doom
+#   shell: "yes | ~/.emacs.d/bin/doom install"
+#   retries: 3
+#   delay: 1
 
 - name: Sync doom
   shell: "yes | ~/.emacs.d/bin/doom sync"
@@ -33,7 +33,7 @@
   delay: 1
 
 - name: Copy emacs service to systemd directory
-  become: true
+  become: yes
   copy:
     src: emacs.service
     dest: "/etc/systemd/user/emacs.service"

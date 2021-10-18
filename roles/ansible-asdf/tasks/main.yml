@@ -60,3 +60,7 @@
     - golang 1.17
     - gohugo extended_0.88.1
   ignore_errors: true
+
+- name: Install poetry
+  become: false
+  shell: "curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -"

@@ -6,12 +6,16 @@ third_party_repos:
   - filename: "signal"
     key_location: "https://updates.signal.org/desktop/apt/keys.asc"
     repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
-  - filename: "wire"
-    key_location: "https://wire-app.wire.com/linux/releases.key"
-    repo: "deb [arch=amd64] https://wire-app.wire.com/linux/debian stable main"
   - filename: "teams"
     key_location: "https://packages.microsoft.com/keys/microsoft.asc"
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/ms-teams stable main"
+  - filename: "docker"
+    key_location: "https://download.docker.com/linux/ubuntu/gpg"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu hirsute stable"
+
+ppas:
+  - repo: "ppa:ubuntu-elisp/ppa"
+    codename: "hirsute"
 
 mullvad_account_number: !vault |
   $ANSIBLE_VAULT;1.1;AES256

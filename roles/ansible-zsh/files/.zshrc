@@ -181,7 +181,6 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 # Docker
 export PATH="$HOME/.local/bin/docker:$PATH"
-export DOCKER_BIN="$HOME.local/bin/docker"
 export DOCKER_HOST="unix:///run/user/1000/docker.sock"
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
