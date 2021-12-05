@@ -33,7 +33,6 @@ pkgs_to_install:
   - android-libziparchive
   - android-sdk-build-tools-common
   - android-sdk-platform-tools-common
-  - anki
   - ansible
   - ansible-base
   - apg
@@ -423,7 +422,6 @@ pkgs_to_install:
   - gnome-shell-extension-system76-power
   - gnome-startup-applications
   - gnome-system-monitor
-  - gnome-system-tools
   - gnome-terminal
   - gnome-terminal-data
   - gnome-themes-extra
@@ -1344,7 +1342,6 @@ pkgs_to_install:
   - libomp-12-dev
   - libomp5-12
   - libonig5
-  - liboobs-1-5
   - libopenal-data
   - libopenal1
   - libopenblas-dev
@@ -2298,7 +2295,6 @@ pkgs_to_install:
   - python3-pydbus
   - python3-pygments
   - python3-pyinotify
-  - python3-pykwalify
   - python3-pymacaroons
   - python3-pyparsing
   - python3-pyqrcode
@@ -2316,8 +2312,6 @@ pkgs_to_install:
   - python3-requests-kerberos
   - python3-requests-ntlm
   - python3-rfc3339
-  - python3-ruamel.yaml
-  - python3-ruamel.yaml.clib
   - python3-secretstorage
   - python3-selinux
   - python3-send2trash
@@ -2673,7 +2667,6 @@ pkgs_to_install:
   - zlib1g
   - zlib1g-dev
   - zotero
-  - zsh
   - zsh-common
   - zstd
 
