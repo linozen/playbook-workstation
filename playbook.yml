@@ -157,9 +157,12 @@
   tags: [fish, shell]
   hosts: all
   tasks:
-    - name: Debug
-      debug:
-        msg: "{{ ansible_env }}"
+    - name: Symlink relevant config files to playbook-workstation
+      file:
+        src: "{{ playbook_dir }}/files/fish/config.fish"
+        dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+        state: link
+        force: true
 
     - name: Change user shell to zsh
       become: true
@@ -184,18 +187,12 @@
         dest: /tmp/fisher.fish
 
     - name: Install fisher
-      shell: "fish -c source '/tmp/fisher && fisher install jorgebucaran/fisher'"
+      shell: "fish -c 'source /tmp/fisher.fish && fisher install jorgebucaran/fisher'"
 
     - name: Install plugins via fisher
       shell: "fish -c 'fisher install {{ item }}'"
       loop: "{{ fisher_plugins }}"
 
-    - name: Symlink relevant config files to playbook-workstation
-      file:
-        src: "{{ playbook_dir }}/files/fish/config.fish"
-        dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
-        state: link
-        force: true
 
 - name: Setup asdf
   tags: [asdf, languages]
@@ -268,7 +265,7 @@
     - name: Copy Emacs service to systemd directory
       become: true
       copy:
-        src: "{{ playbook_dir }}/emacs/service"
+        src: "{{ playbook_dir }}/files/emacs/service"
         dest: "/etc/systemd/user/emacs.service"
 
     - name: Enable Emacs service
