@@ -1,2 +1,2 @@
-/settings.db-shm
-/settings.db-wal
+**/settings.db-shm
+**/settings.db-wal
