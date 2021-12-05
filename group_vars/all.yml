@@ -1,0 +1,124 @@
+---
+# repos
+ppa:
+  - repo: "ppa:ubuntu-elisp/ppa"
+    codename: "hirsute"
+  - repo: "ppa:yubico/stable"
+    codename: "hirsute"
+  - repo: "ppa:fish-shell/release-3"
+    codename: "hirsute"
+  - repo: "ppa:papirus/papirus"
+    codename: "hirsute"
+
+non_ppa:
+  - filename: "zotero"
+    key_location: "https://github.com/retorquere/zotero-deb/releases/download/apt-get/deb.gpg.key"
+    repo: "deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./"
+  - filename: "signal"
+    key_location: "https://updates.signal.org/desktop/apt/keys.asc"
+    repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
+  - filename: "docker"
+    key_location: "https://download.docker.com/linux/ubuntu/gpg"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu hirsute stable"
+  - filename: "element"
+    key_location: "https://packages.element.io/debian/element-io-archive-keyring.gpg"
+    repo: "deb https://packages.element.io/debian/ default main"
+
+# vpn
+mullvad_account_number: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  30343761376539633733663065323530323639633031613736353066373033643939333661373663
+  3764383261343664633362303035376436666338666639350a303566636364656264393661346434
+  39336137343262336639303766303533303735393939356533626365343962396137353363643966
+  6138343034663133330a366132616531376662373933333738396563613335363663663530386634
+  65383965383730343033363739663061643639333230653764663239323663326262
+
+# fish > starship
+starship_url: "https://github.com/starship/starship/releases/download/v1.0.0/starship-x86_64-unknown-linux-gnu.tar.gz"
+starship_sha256sum: "8952efbcbdf8487273d7467caa3ff87b8917ba00fec1a083a36e9e04a6df5cd3"
+
+# fish > fisher plugins
+fisher_plugins:
+  - jorgebucaran/fisher
+  - franciscolourenco/done
+  - jethrokuan/z
+  - PatrickF1/fzf.fish
+  - 2m/fish-history-merge
+  - acomagu/fish-async-prompt
+
+# asdf
+# asdf > plugins
+asdf_plugins:
+  - python https://github.com/danhper/asdf-python
+  - poetry https://github.com/asdf-community/asdf-poetry
+  - nodejs https://github.com/asdf-vm/asdf-nodejs
+  - golang https://github.com/kennyp/asdf-golang
+  - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
+  - direnv https://github.com/asdf-community/asdf-direnv
+  - ctop https://github.com/neohsu/asdf-ctop.git
+
+# asdf > languages
+asdf_languages:
+  - name: "python"
+    version: "3.9.9"
+  - name: "golang"
+    version: "1.17"
+  - name: "poetry"
+    version: "latest"
+  - name: "direnv"
+    version: "latest"
+  - name: "ctop"
+    version: "latest"
+  - name: "gohugo"
+    version: "extended_0.88.1"
+  - name: "nodejs"
+    version: "lts"
+
+# gnome
+gnome_extensions:
+  - url: "https://extensions.gnome.org/extension/779/clipboard-indicator/"
+    state: "present"
+    installed: true
+  - url: "https://extensions.gnome.org/extension/841/freon/"
+    state: "present"
+    installed: true
+  - url: "https://extensions.gnome.org/extension/545/hide-top-bar/"
+    state: "present"
+    installed: true
+  - url: "https://extensions.gnome.org/extension/906/sound-output-device-chooser/"
+    state: "present"
+    installed: true
+  - url: "https://extensions.gnome.org/extension/3019/user-themes-x/"
+    state: "present"
+    installed: true
+  - url: "https://extensions.gnome.org/extension/3088/extension-list/"
+    state: "present"
+    installed: true
+
+# shares
+# shares > nfs
+nfs_version: 4
+nfs_mount_opts: rsize=8192,wsize=8192,timeo=14,intr
+nfs_share_mounts:
+  - path: /home/lino/Syno/audio
+    location: 192.168.178.11:/volume1/audio
+  - path: /home/lino/Syno/video
+    location: 192.168.178.11:/volume1/video
+  - path: /home/lino/Syno/photo
+    location: 192.168.178.11:/volume1/photo
+  - path: /home/lino/Syno/share
+    location: 192.168.178.11:/volume1/share
+  - path: /home/lino/Syno/borg
+    location: 192.168.178.11:/volume1/borg
+
+# shares > cifs
+smb_share_mounts:
+  - path: /home/lino/Syno/archive
+    location: //192.168.178.11/archive
+smb_share_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  38393631623631393232343230353134643435663832333361373035363037633637646333386166
+  3133376166646530346338343331326439393436656264610a636338386631306532333034376239
+  65313833353431666338383661663030636333623831636632363661343966633734666662316236
+  3638636332343235640a376538636561353031643439393965333135616465366134303637333064
+  38376463326361663731666234356435353038656430613566313639303239616538
