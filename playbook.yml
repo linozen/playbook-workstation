@@ -305,6 +305,11 @@
         src: "{{ playbook_dir }}/files/gnome/shell.ini"
         dest: "/tmp/"
 
+    - name: Sync wallpaper
+      synchronize:
+        src: "{{ playbook_dir }}/files/lights.png"
+        dest: "~/Pictures/lights.png"
+
     - name: Load Gnome desktop settings from .ini
       shell: "fish -c 'dconf load /org/gnome/desktop/ < /tmp/desktop.ini'"
 
