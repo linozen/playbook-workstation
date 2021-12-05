@@ -1,85 +1,320 @@
 ---
-- name: Install base packages
+- name: Install base packages via apt and flatpak
+  tags: [pkgs, base, apt]
   hosts: all
   tasks:
-    - name: run roles/ansible-pkgs
-      include_role:
-        name: ansible-pkgs
-  tags:
-    - pkgs
+    - name: Update all packages to their latest version
+      become: true
+      apt:
+        name: "*"
+        state: latest
+        update_cache: true
 
-- name: Enable backups
-  hosts: all
-  become: true
-  tasks:
-    - name: run roles/ansible-borgbackup
-      include_role:
-        name: ansible-borgbackup
-  tags:
-    - backup
+    - name: Add third-party repositories (ppa)
+      become: true
+      apt_repository:
+        repo: "{{ item.repo }}"
+        codename: "{{ item.codename }}"
+        update_cache: true
+      loop: "{{ ppa }}"
 
-- name: Setup shell
-  hosts: all
-  tasks:
-    - name: run roles/ansible-zsh
-      include_role:
-        name: ansible-zsh
-  tags:
-    - zsh
-    - shell
+    - name: Add third-party repository keys (non-ppa)
+      become: true
+      apt_key:
+        url: "{{ item.key_location }}"
+        state: present
+      loop: "{{ non_ppa }}"
 
-- name: Setup languages
+    - name: Add third-party repositories (non-ppa)
+      become: true
+      apt_repository:
+        repo: "{{ item.repo }}"
+        state: present
+        filename: "{{ item.filename }}"
+        update_cache: true
+      loop: "{{ non_ppa }}"
+
+    - name: Install packages
+      become: true
+      apt:
+        state: present
+        update_cache: true
+        pkg: "{{ pkgs_to_install }}"
+
+    - name: Remove unnecessary packages
+      become: true
+      apt:
+        state: absent
+        purge: true
+        update_cache: true
+        pkg: "{{ pkgs_to_remove }}"
+
+    - name: Install flatpacks from flathub.org
+      tags: [flatpak]
+      shell: flatpak install -y --noninteractive flathub {{ item }}
+      loop: "{{ flatpaks }}"
+
+    - name: Remove useless packages from the cache
+      become: true
+      apt:
+        autoclean: true
+
+    - name: Remove dependencies that are no longer required
+      become: true
+      apt:
+        autoremove: true
+
+- name: Configure syncthing
+  tags: [syncthing]
   hosts: all
   tasks:
-    - name: run roles/ansible-asdf
-      include_role:
-        name: ansible-asdf
-  tags:
-    - asdf
-    - languages
+    - name: Copy syncthing user service to systemd directory
+      become: true
+      copy:
+        src: "{{ playbook_dir }}/files/syncthing/service"
+        dest: "/etc/systemd/user/syncthing.service"
+
+    - name: Enable syncthing user service
+      service:
+        name: syncthing
+        enabled: true
+        state: started
+        scope: user
+
+- name: Configure rootless Docker
+  tags: [docker, container-engine]
+  hosts: all
+  tasks:
+    - name: Disable rootful Docker daemon
+      become: true
+      service:
+        name: docker.service
+        enabled: false
+        state: stopped
+
+    - name: Disable rootful Docker socket
+      become: true
+      service:
+        name: docker.socket
+        enabled: false
+        state: stopped
+
+    - name: Install rootless Docker
+      shell: "dockerd-rootless-setuptool.sh install"
+
+- name: Install Mullvad VPN
+  tags: [mullvad, vpn]
+  hosts: all
+  tasks:
+    - name: Get Mullvad VPN Signing Key
+      shell: "wget https://mullvad.net/media/mullvad-code-signing.asc -O /tmp/mullvad-code-signing.asc"
+
+    - name: Get Mullvad VPN Signing Key
+      shell: "gpg2 --import /tmp/mullvad-code-signing.asc"
+
+    - name: Get Mullvad VPN client
+      get_url:
+        url: "https://mullvad.net/download/app/deb/latest"
+        dest: "{{ ansible_env.HOME }}/Downloads"
+
+    - name: Get Mullvad VPN client signing key
+      get_url:
+        url: "https://mullvad.net/download/app/deb/latest/signature"
+        dest: "{{ ansible_env.HOME }}/Downloads"
+
+    - name: Get Mullvad VPN Signing Key
+      shell: "gpg2 --verify {{ ansible_env.HOME }}/Downloads/MullvadVPN-*.asc"
+
+    - name: Install Mullvad VPN client
+      become: true
+      shell: "yes | dpkg -i {{ ansible_env.HOME }}/Downloads/Mullvad*.deb"
+
+    - name: Set Mullvad VPN account key
+      become: true
+      shell: "mullvad account set {{ mullvad_account_number }}"
+
+- name: Setup backups with Vorta
+  tags: [backup, vorta]
+  hosts: all
+  tasks:
+    - name: Let user stop Vorta
+      pause:
+        prompt: "Please quit Vorta if it's running"
+
+    - name: Remove Vorta settings db if it exists
+      file:
+        path: "~/.local/share/Vorta/settings.db"
+        state: "absent"
+
+    - name: Create a symbolic link to settings.db
+      file:
+        src: "{{ playbook_dir }}/files/vorta/settings.db"
+        dest: "~/.local/share/Vorta/settings.db"
+        state: link
+        force: true
+
+- name: Install and set up fish shell
+  tags: [fish, shell]
+  hosts: all
+  tasks:
+    - name: Debug
+      debug:
+        msg: "{{ ansible_env }}"
+
+    - name: Change user shell to zsh
+      become: true
+      user:
+        name: "{{ ansible_env.USERNAME }}"
+        shell: /bin/fish
+
+    - name: Download starship release
+      get_url:
+        url: "{{ starship_url }}"
+        dest: /tmp/starship.tar.gz
+        sha256sum: "{{ starship_sha256sum }}"
+
+    - name: Extract starship binary
+      unarchive:
+        src: /tmp/starship.tar.gz
+        dest: "{{ ansible_env.HOME }}/.local/bin"
+
+    - name: Download fisher init script
+      get_url:
+        url: "https://raw.githubusercontent.com/jorgebucaran/fisher/HEAD/functions/fisher.fish"
+        dest: /tmp/fisher.fish
+
+    - name: Install fisher
+      shell: "fish -c source '/tmp/fisher && fisher install jorgebucaran/fisher'"
+
+    - name: Install plugins via fisher
+      shell: "fish -c 'fisher install {{ item }}'"
+      loop: "{{ fisher_plugins }}"
+
+    - name: Symlink relevant config files to playbook-workstation
+      file:
+        src: "{{ playbook_dir }}/files/fish/config.fish"
+        dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+        state: link
+        force: true
+
+- name: Setup asdf
+  tags: [asdf, languages]
+  hosts: all
+  tasks:
+    - name: Get asdf
+      become: false
+      git:
+        repo: https://github.com/asdf-vm/asdf.git
+        dest: "{{ ansible_env.HOME }}/.asdf"
+        depth: 1
+      ignore_errors: true
+
+    - name: Add asdf plugins
+      become: false
+      shell: "fish -c 'asdf plugin add {{ item }}'"
+      loop: "{{ asdf_plugins }}"
+      ignore_errors: true
+
+    - name: Add asdf plugins
+      become: false
+      shell: "fish -c 'asdf plugin add {{ item }}'"
+      loop: "{{ asdf_plugins }}"
+      ignore_errors: true
+
+    - name: Install languages with asdf
+      become: false
+      shell: "fish -c 'asdf install {{ item.name }} {{ item.version }}'"
+      loop: "{{ asdf_languages }}"
+
+    - name: Set global language version with asdf
+      become: false
+      shell: "fish -c 'asdf global {{ item.name }} {{ item.version }}'"
+      loop: "{{ asdf_languages }}"
 
 - name: Setup (Doom) Emacs
+  tags: [emacs, doom, editor]
   hosts: all
   tasks:
-    - name: run roles/ansible-doom-emacs
-      include_role:
-        name: ansible-doom-emacs
-  tags:
-    - emacs
+    - name: Sync fonts
+      tags: [fonts]
+      synchronize:
+        src: "{{ playbook_dir }}/files/fonts/"
+        dest: "{{ ansible_env.HOME }}/.local/share/fonts"
 
-- name: Install mu4e
-  hosts: all
-  tasks:
-    - name: run roles/ansible-mu4e
-      include_role:
-        name: ansible-mu4e
-  tags:
-    - emacs
-    - mu4e
+    - name: Refresh fonts cache
+      tags: [fonts]
+      shell: "fish -c 'fc-cache -f -v'"
 
-- name: Install Gnome Shell extensions
-  hosts: all
-  tasks:
-    - name: run roles/ansible-gnome-extensions
-      include_role:
-        name: ansible-gnome-extensions
-  tags:
-    - gnome
+    - name: Clone Doom Emacs
+      git:
+        repo: "https://github.com/hlissner/doom-emacs.git"
+        dest: "~/.emacs.d"
+        force: true
+        depth: 1
 
-- name: Customise Gnome
-  hosts: all
-  tasks:
-    - name: run roles/ansible-gnome-config
-      include_role:
-        name: ansible-gnome-config
-  tags:
-    - gnome
+    - name: Clone private Doom Emacs configuration
+      git:
+        repo: "git@github.com:linozen/doom.git"
+        dest: "~/.doom.d"
+        force: true
+        depth: 1
 
-- name: Mount CIFS and NFS shares
+    - name: Run 'doom install'
+      shell: "fish -c 'yes | doom install'"
+
+    - name: Run 'doom sync'
+      shell: "fish -c 'yes | doom sync'"
+
+    - name: Copy Emacs service to systemd directory
+      become: true
+      copy:
+        src: "{{ playbook_dir }}/emacs/service"
+        dest: "/etc/systemd/user/emacs.service"
+
+    - name: Enable Emacs service
+      service:
+        name: emacs
+        enabled: true
+        state: started
+        scope: user
+
+- name: Setup Gnome
+  tags: [gnome, de]
   hosts: all
   tasks:
-    - name: run roles/ansible-mount
+    - name: Install Gnome extensions
+      vars:
+        gnome_user: "{{ ansible_env.USERNAME }}"
       include_role:
-        name: ansible-mount
-  tags:
-    - mount
+        name: ansible-role-gnome-extensions
+
+    - name: Install Gnome Dracula theme
+      git:
+        repo: "https://github.com/dracula/gtk.git"
+        dest: "~/.themes/Dracula"
+        force: true
+        depth: 1
+
+    - name: Sync dumped Gnome config files to host (/org/gnome/desktop/)
+      synchronize:
+        src: "{{ playbook_dir }}/files/gnome/desktop.ini"
+        dest: "/tmp/"
+
+    - name: Sync dumped Gnome config files to host (/org/gnome/shell/)
+      synchronize:
+        src: "{{ playbook_dir }}/files/gnome/shell.ini"
+        dest: "/tmp/"
+
+    - name: Load Gnome desktop settings from .ini
+      shell: "fish -c 'dconf load /org/gnome/desktop/ < /tmp/desktop.ini'"
+
+    - name: Load Gnome shell settings from .ini
+      shell: "fish -c 'dconf load /org/gnome/shell/ < /tmp/shell.ini'"
+
+    - name: Restart Gnome shell
+      shell: |
+        busctl --user call org.gnome.Shell \
+        /org/gnome/Shell org.gnome.Shell \
+        Eval s 'Meta.restart("Restarting…")'
+
+# TODO Mount shares
