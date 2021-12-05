@@ -167,8 +167,8 @@
     - name: Change user shell to zsh
       become: true
       user:
-        name: "{{ ansible_env.USERNAME }}"
-        shell: /bin/fish
+        name: "{{ ansible_env.USER }}"
+        shell: /usr/bin/fish
 
     - name: Download starship release
       get_url:
@@ -192,7 +192,6 @@
     - name: Install plugins via fisher
       shell: "fish -c 'fisher install {{ item }}'"
       loop: "{{ fisher_plugins }}"
-
 
 - name: Setup asdf
   tags: [asdf, languages]
