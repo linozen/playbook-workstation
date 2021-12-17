@@ -12,8 +12,8 @@ ppa:
 
 non_ppa:
   - filename: "zotero"
-    key_location: "https://github.com/retorquere/zotero-deb/releases/download/apt-get/deb.gpg.key"
-    repo: "deb https://github.com/retorquere/zotero-deb/releases/download/apt-get/ ./"
+    key_location: "https://downloads.sourceforge.net/project/zotero-deb/./deb.gpg.key"
+    repo: "deb [by-hash=force] https://downloads.sourceforge.net/project/zotero-deb ./"
   - filename: "signal"
     key_location: "https://updates.signal.org/desktop/apt/keys.asc"
     repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
