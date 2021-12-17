@@ -19,6 +19,7 @@
       loop: "{{ ppa }}"
 
     - name: Add third-party repository keys (non-ppa)
+      tags: [repos]
       become: true
       apt_key:
         url: "{{ item.key_location }}"
@@ -26,6 +27,7 @@
       loop: "{{ non_ppa }}"
 
     - name: Add third-party repositories (non-ppa)
+      tags: [repos]
       become: true
       apt_repository:
         repo: "{{ item.repo }}"
