@@ -189,7 +189,6 @@ pkgs_to_install:
   - finalrd
   - findutils
   - firefox
-  - firefox-locale-ar
   - firefox-locale-de
   - firefox-locale-en
   - firefox-locale-es
@@ -296,6 +295,7 @@ pkgs_to_install:
   - gir1.2-accountsservice-1.0
   - gir1.2-atk-1.0
   - gir1.2-atspi-2.0
+  - gir1.2-ayatanaappindicator3-0.1
   - gir1.2-flatpak-1.0
   - gir1.2-freedesktop
   - gir1.2-gck-1
@@ -516,14 +516,9 @@ pkgs_to_install:
   - krb5-locales
   - kwayland-data
   - kwayland-integration
-  - language-pack-de
   - language-pack-de-base
   - language-pack-en
   - language-pack-en-base
-  - language-pack-gnome-de
-  - language-pack-gnome-de-base
-  - language-pack-gnome-en
-  - language-pack-gnome-en-base
   - language-selector-common
   - language-selector-gnome
   - laptop-detect
@@ -597,6 +592,9 @@ pkgs_to_install:
   - libavcodec58
   - libavformat58
   - libavutil56
+  - libayatana-appindicator3-1
+  - libayatana-ido3-0.4-0
+  - libayatana-indicator3-7
   - libb-hooks-endofscope-perl
   - libb-hooks-op-check-perl
   - libb2-1
@@ -1803,24 +1801,7 @@ pkgs_to_install:
   - linux-base
   - linux-firmware
   - linux-generic
-  - linux-headers-5.13.0-7620
-  - linux-headers-5.13.0-7620-generic
-  - linux-headers-5.15.5-76051505
-  - linux-headers-5.15.5-76051505-generic
-  - linux-headers-generic
-  - linux-image-5.11.0-40-generic
-  - linux-image-5.11.0-41-generic
-  - linux-image-5.13.0-7614-generic
-  - linux-image-5.15.5-76051505-generic
-  - linux-image-generic
-  - linux-image-unsigned-5.11.0-38-generic
   - linux-libc-dev
-  - linux-modules-5.11.0-38-generic
-  - linux-modules-5.11.0-40-generic
-  - linux-modules-5.11.0-41-generic
-  - linux-modules-5.13.0-7614-generic
-  - linux-modules-5.15.5-76051505-generic
-  - linux-modules-extra-5.13.0-7614-generic
   - linux-sound-base
   - linux-system76
   - lm-sensors
@@ -1909,10 +1890,6 @@ pkgs_to_install:
   - nvidia-container-runtime
   - nvidia-container-toolkit
   - nvidia-dkms-470
-  - nvidia-driver-460
-  - nvidia-driver-470
-  - nvidia-kernel-common-470
-  - nvidia-kernel-source-470
   - nvidia-settings
   - nvidia-utils-470
   - ocl-icd-libopencl1
@@ -2355,6 +2332,7 @@ pkgs_to_install:
   - sudo
   - switcheroo-control
   - syncthing
+  - syncthing-gtk
   - system-config-printer
   - system-config-printer-common
   - system-config-printer-udev
@@ -2400,6 +2378,7 @@ pkgs_to_install:
   - tilix
   - tilix-common
   - time
+  - timeshift
   - tipa
   - tk
   - tk8.6
@@ -2573,6 +2552,16 @@ pkgs_to_remove:
   - fcitx-modules
   - fcitx-table
   - fortune-mod
+  - firefox-locale-ar
+  - firefox-locale-de
+  - firefox-locale-es
+  - firefox-locale-fr
+  - firefox-locale-it
+  - firefox-locale-ja
+  - firefox-locale-pt
+  - firefox-locale-ru
+  - firefox-locale-zh-hans
+  - firefox-locale-zh-hant
   - geary
   - gnome-boxes
   - gnome-games
