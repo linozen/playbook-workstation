@@ -30,6 +30,16 @@ EOF
 
 dpkg-query -f '  - ${Package}\n' -W >> "$TARGET_FILE"
 
+echo "Removing packages from list that should not be there ..."
+
+grep -v "linux-image" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+grep -v "linux-headers" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+grep -v "linux-modules" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+grep -v "nvidia-driver" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+grep -v "nvidia-kernel" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+grep -v "language-pack-gnome" "$TARGET_FILE" > tmpfile && mv tmpfile "$TARGET_FILE"
+
+echo "Add packages to be removed ..."
 cat << EOF >> "$TARGET_FILE"
 
 pkgs_to_remove:
@@ -40,6 +50,16 @@ pkgs_to_remove:
   - fcitx-modules
   - fcitx-table
   - fortune-mod
+  - firefox-locale-ar
+  - firefox-locale-de
+  - firefox-locale-es
+  - firefox-locale-fr
+  - firefox-locale-it
+  - firefox-locale-ja
+  - firefox-locale-pt
+  - firefox-locale-ru
+  - firefox-locale-zh-hans
+  - firefox-locale-zh-hant
   - geary
   - gnome-boxes
   - gnome-games
