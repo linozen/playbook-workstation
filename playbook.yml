@@ -237,10 +237,12 @@
   hosts: all
   tasks:
     - name: Sync fonts
-      tags: [fonts]
-      synchronize:
-        src: "{{ playbook_dir }}/files/fonts/"
+      unarchive:
+        src: "{{ playbook_dir }}/files/fonts/{{ item }}"
         dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+      loop:
+        - "iosevka-aile.tar.xz"
+        - "iosevka.tar.xz"
 
     - name: Refresh fonts cache
       tags: [fonts]
