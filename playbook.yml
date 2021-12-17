@@ -161,12 +161,15 @@
   tasks:
     - name: Symlink relevant config files to playbook-workstation
       file:
-        src: "{{ playbook_dir }}/files/fish/config.fish"
-        dest: "{{ ansible_env.HOME }}/.config/fish/config.fish"
+        src: "{{ playbook_dir }}/files/fish/{{ item.fname }}"
+        dest: "{{ ansible_env.HOME }}/{{ item.fpath }}/{{ item.fname }}"
         state: link
         force: true
+      loop:
+        - fname: config.fish
+          fpath: .config/fish
 
-    - name: Change user shell to zsh
+    - name: Change user shell to /usr/bin/fish
       become: true
       user:
         name: "{{ ansible_env.USER }}"
