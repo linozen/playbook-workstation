@@ -1,4 +1,11 @@
-# Provisioning a Debian Workstation
+# Provisioning a Reproducible Workstation with Pop OS 21.04
+
+WIP
+
+## Motivation
+
+<!-- TODO Write and link to blogpost -->
+<!-- TODO Add screenshots -->
 
 ## Usage
 
@@ -10,6 +17,8 @@ sudo apt-get install gnupg2 git curl ansible
 ```
 
 ### Setup GnuPG
+
+<!-- TODO Rework with Yubikeys -->
 
 Next, I restore my GPG keys using some simple scripts. See [this
 gist](https://gist.github.com/chrisroos/1205934) for more information. One for
@@ -47,6 +56,8 @@ gpg2 --import <yourkey@id>.sub_priv.asc
 
 ### Setup SSH Keys
 
+<!-- TODO Rework with Yubikeys -->
+
 Second, generate a new SSH key for the new machine's user account
 
 ```bash
@@ -55,7 +66,7 @@ ssh-keygen -t ed25519 -C "<username>@<new_host>"
 
 Next, proceed to add the public part of this key wherever you need it.
 
-### Install Packages
+### Install base Packages
 
 After cloning this repo, run the command below, to install all packages
 specified in
