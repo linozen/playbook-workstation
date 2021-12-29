@@ -3,6 +3,11 @@
   tags: [pkgs, base, apt]
   hosts: all
   tasks:
+    - name: Stop packagekit
+      service:
+        name: packagekit
+        state: stopped
+
     - name: Update all packages to their latest version
       become: true
       apt:
