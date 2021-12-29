@@ -1,0 +1,33 @@
+{
+  "settingDefaults": {
+    "custom_themes": [
+      {
+        "name": "Dracula",
+        "is_dark": true,
+        "colors": {
+          "accent-color": "#bd93f9",
+          "primary-color": "#8be9fd",
+          "warning-color": "#ff5555",
+
+          "sidebar-color": "#282a36",
+
+          "roomlist-background-color": "#2c3342",
+          "roomlist-text-color": "#F8F8F2",
+          "roomlist-text-secondary-color": "#6272a4",
+          "roomlist-highlights-color": "#282a36",
+          "roomlist-separator-color": "#282a36",
+
+          "timeline-background-color": "#282a36",
+          "timeline-text-color": "#f8f8f2",
+          "timeline-text-secondary-color": "#6272a4",
+          "timeline-highlights-color": "#1e1f29",
+
+          "secondary-content": "#f8f8f2",
+          "tertiary-content": "#f8f8f2",
+          "reaction-row-button-selected-bg-color": "#44475a"
+        }
+      }
+    ]
+  },
+  "showLabsSettings": true
+}
