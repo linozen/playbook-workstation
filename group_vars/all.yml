@@ -5,6 +5,9 @@ pkgs_to_install:
   - gnome-tweaks
   - thunderbird
   - alacritty
+  - keepassxc
+  - webext-keepassxc-browser
+  - webext-ublock-origin-firefox
   # emacs
   - emacs-snapshot
 
