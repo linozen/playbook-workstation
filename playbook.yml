@@ -1,4 +1,15 @@
 ---
+- name: Set hostname
+  tags: [hostname]
+  hosts: all
+  vars_prompt:
+    - name: "input_hostname"
+      prompt: "What is the hostname of your new install?"
+
+  tasks:
+    - hostname:
+        name: "{{ input_hostname }}"
+
 - name: Install base packages via apt and flatpak
   tags: [pkgs, base, apt]
   hosts: all
@@ -306,12 +317,12 @@
 
     - name: Sync dumped Gnome config files to host (/org/gnome/desktop/)
       synchronize:
-        src: "{{ playbook_dir }}/files/gnome/desktop.ini"
+        src: "{{ playbook_dir }}/files/gnome/{{ input_hostname }}-desktop.ini"
         dest: "/tmp/"
 
     - name: Sync dumped Gnome config files to host (/org/gnome/shell/)
       synchronize:
-        src: "{{ playbook_dir }}/files/gnome/shell.ini"
+        src: "{{ playbook_dir }}/files/gnome/{{ input_hostname }}-shell.ini"
         dest: "/tmp/"
 
     - name: Sync wallpaper
