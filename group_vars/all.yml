@@ -1,15 +1,147 @@
 ---
-# repos
+# system packages to install
+pkgs_to_install:
+  # basic
+  - gnome-tweaks
+  - thunderbird
+  - alacritty
+  # emacs
+  - emacs-snapshot
+
+# system packages to remove
+pkgs_to_remove:
+  - anthy
+  - fcitx
+  - fcitx-bin
+  - fcitx-data
+  - fcitx-modules
+  - fcitx-table
+  - fortune-mod
+  - geary
+  - gnome-boxes
+  - gnome-games
+  - gnome-getting-started-docs
+  - gnome-getting-started-docs-de
+  - gnome-getting-started-docs-es
+  - gnome-getting-started-docs-fr
+  - gnome-getting-started-docs-it
+  - gnome-getting-started-docs-ja
+  - gnome-getting-started-docs-pt
+  - gnome-getting-started-docs-ru
+  - gnome-getting-started-docs-zh-hk
+  - gnome-getting-started-docs-zh-tw
+  - gnome-user-docs-de
+  - gnome-user-docs-es
+  - gnome-user-docs-fr
+  - gnome-user-docs-it
+  - gnome-user-docs-ja
+  - gnome-user-docs-pt
+  - gnome-user-docs-ru
+  - gnome-user-docs-zh-hans
+  - goldendict
+  - hdate
+  - hdate-applet
+  - hunspell-es
+  - hunspell-fr
+  - hunspell-fr-classical
+  - hunspell-it
+  - hunspell-pt-br
+  - hunspell-pt-pt
+  - hunspell-ru
+  - ibus-libpinyin
+  - kasumi
+  - khmerconverter
+  - language-pack-ar
+  - language-pack-ar-base
+  - language-pack-es
+  - language-pack-es-base
+  - language-pack-fr
+  - language-pack-fr-base
+  - language-pack-gnome-ar
+  - language-pack-gnome-ar-base
+  - language-pack-gnome-es
+  - language-pack-gnome-es-base
+  - language-pack-gnome-fr
+  - language-pack-gnome-fr-base
+  - language-pack-gnome-it
+  - language-pack-gnome-it-base
+  - language-pack-gnome-ja
+  - language-pack-gnome-ja-base
+  - language-pack-gnome-pt
+  - language-pack-gnome-pt-base
+  - language-pack-gnome-ru
+  - language-pack-gnome-ru-base
+  - language-pack-gnome-zh-hans
+  - language-pack-gnome-zh-hans-base
+  - language-pack-gnome-zh-hant
+  - language-pack-gnome-zh-hant-base
+  - language-pack-it
+  - language-pack-it-base
+  - language-pack-ja
+  - language-pack-ja-base
+  - language-pack-pt
+  - language-pack-pt-base
+  - language-pack-ru
+  - language-pack-ru-base
+  - language-pack-zh-hans
+  - language-pack-zh-hans-base
+  - language-pack-zh-hant
+  - language-pack-zh-hant-base
+  - libreoffice-help-common
+  - libreoffice-help-de
+  - libreoffice-help-en-gb
+  - libreoffice-help-en-us
+  - libreoffice-help-es
+  - libreoffice-help-fr
+  - libreoffice-help-it
+  - libreoffice-help-ja
+  - libreoffice-help-pt
+  - libreoffice-help-pt-br
+  - libreoffice-help-ru
+  - libreoffice-help-zh-cn
+  - libreoffice-help-zh-tw
+  - libreoffice-impress
+  - libreoffice-l10n-ar
+  - libreoffice-l10n-es
+  - libreoffice-l10n-fr
+  - libreoffice-l10n-it
+  - libreoffice-l10n-ja
+  - libreoffice-l10n-pt
+  - libreoffice-l10n-pt-br
+  - libreoffice-l10n-ru
+  - libreoffice-l10n-zh-cn
+  - libreoffice-l10n-zh-tw
+  - mlterm
+  - mlterm-tiny
+  - mozc-data
+  - mozc-server
+  - mozc-utils
+  - rhythmbox
+  - uim-mozc
+  - xiterm+thai
+  - xterm
+
+# flatpaks
+flatpaks:
+  - com.github.tchx84.Flatseal
+  - com.wire.WireDesktop
+  - org.chromium.Chromium
+  - org.flathub.flatpak-external-data-checker
+
+# repos (ppa)
 ppa:
   - repo: "ppa:ubuntu-elisp/ppa"
-    codename: "hirsute"
+    codename: "impish"
   - repo: "ppa:yubico/stable"
-    codename: "hirsute"
+    codename: "impish"
   - repo: "ppa:fish-shell/release-3"
-    codename: "hirsute"
+    codename: "impish"
   - repo: "ppa:papirus/papirus"
-    codename: "hirsute"
+    codename: "impish"
+  - repo: "ppa:flexiondotorg/quickemu"
+    codename: "impish"
 
+# repos (non-ppa)
 non_ppa:
   - filename: "zotero"
     key_location: "https://downloads.sourceforge.net/project/zotero-deb/./deb.gpg.key"
