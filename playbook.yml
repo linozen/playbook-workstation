@@ -282,7 +282,7 @@
         state: started
         scope: user
 
-- name: Setup Gnome
+- name: Setup and rice Gnome
   tags: [gnome, de, gtk, rice]
   hosts: all
   tasks:
@@ -326,7 +326,7 @@
         /org/gnome/Shell org.gnome.Shell \
         Eval s 'Meta.restart("Restarting…")'
 
-- name: Setup QT
+- name: Rice QT apps
   tags: [qt5, qt, de, rice]
   hosts: all
   tasks:
@@ -341,4 +341,18 @@
           fpath: .config/qt5ct
         - fname: Dracula.conf
           fpath: .config/qt5ct/colors
+
+- name: Rice Element
+  tags: [rice, element]
+  hosts: all
+  tasks:
+    - name: Symlink relevant config files to playbook-workstation
+      file:
+        src: "{{ playbook_dir }}/files/element/{{ item.fname }}"
+        dest: "{{ ansible_env.HOME }}/{{ item.fpath }}/{{ item.fname }}"
+        state: link
+        force: true
+      loop:
+        - fname: config.json
+          fpath: .config/Element
 # TODO Mount shares
