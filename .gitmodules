@@ -1,3 +1,0 @@
-[submodule "roles/ansible-role-gnome-extensions"]
-	path = roles/ansible-role-gnome-extensions
-	url = https://github.com/linozen/ansible-role-gnome-extensions.git
