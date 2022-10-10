@@ -1,160 +1,55 @@
 ---
 # system packages to install
 pkgs_to_install:
-  # basic
+  - ca-certificates
+  - cmake
+  - containerd.io
+  - curl
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose-plugin
+  - emacs28-nativecomp
+  - gcc
   - gnome-tweaks
-  - thunderbird
-  - alacritty
-  - keepassxc
-  - webext-keepassxc-browser
-  - webext-ublock-origin-firefox
-  # emacs
-  - emacs-snapshot
+  - gnupg
+  - gtimelog
+  - isync
+  - libvterm-dev
+  - lsb-release
+  - maildir-utils
+  - make
+  - msmtp
+  - mu4e
+  - papirus-icon-theme
 
 # system packages to remove
 pkgs_to_remove:
-  - anthy
-  - fcitx
-  - fcitx-bin
-  - fcitx-data
-  - fcitx-modules
-  - fcitx-table
-  - fortune-mod
   - geary
-  - gnome-boxes
-  - gnome-games
-  - gnome-getting-started-docs
-  - gnome-getting-started-docs-de
-  - gnome-getting-started-docs-es
-  - gnome-getting-started-docs-fr
-  - gnome-getting-started-docs-it
-  - gnome-getting-started-docs-ja
-  - gnome-getting-started-docs-pt
-  - gnome-getting-started-docs-ru
-  - gnome-getting-started-docs-zh-hk
-  - gnome-getting-started-docs-zh-tw
-  - gnome-user-docs-de
-  - gnome-user-docs-es
-  - gnome-user-docs-fr
-  - gnome-user-docs-it
-  - gnome-user-docs-ja
-  - gnome-user-docs-pt
-  - gnome-user-docs-ru
-  - gnome-user-docs-zh-hans
-  - goldendict
-  - hdate
-  - hdate-applet
-  - hunspell-es
-  - hunspell-fr
-  - hunspell-fr-classical
-  - hunspell-it
-  - hunspell-pt-br
-  - hunspell-pt-pt
-  - hunspell-ru
-  - ibus-libpinyin
-  - kasumi
-  - khmerconverter
-  - language-pack-ar
-  - language-pack-ar-base
-  - language-pack-es
-  - language-pack-es-base
-  - language-pack-fr
-  - language-pack-fr-base
-  - language-pack-gnome-ar
-  - language-pack-gnome-ar-base
-  - language-pack-gnome-es
-  - language-pack-gnome-es-base
-  - language-pack-gnome-fr
-  - language-pack-gnome-fr-base
-  - language-pack-gnome-it
-  - language-pack-gnome-it-base
-  - language-pack-gnome-ja
-  - language-pack-gnome-ja-base
-  - language-pack-gnome-pt
-  - language-pack-gnome-pt-base
-  - language-pack-gnome-ru
-  - language-pack-gnome-ru-base
-  - language-pack-gnome-zh-hans
-  - language-pack-gnome-zh-hans-base
-  - language-pack-gnome-zh-hant
-  - language-pack-gnome-zh-hant-base
-  - language-pack-it
-  - language-pack-it-base
-  - language-pack-ja
-  - language-pack-ja-base
-  - language-pack-pt
-  - language-pack-pt-base
-  - language-pack-ru
-  - language-pack-ru-base
-  - language-pack-zh-hans
-  - language-pack-zh-hans-base
-  - language-pack-zh-hant
-  - language-pack-zh-hant-base
-  - libreoffice-help-common
-  - libreoffice-help-de
-  - libreoffice-help-en-gb
-  - libreoffice-help-en-us
-  - libreoffice-help-es
-  - libreoffice-help-fr
-  - libreoffice-help-it
-  - libreoffice-help-ja
-  - libreoffice-help-pt
-  - libreoffice-help-pt-br
-  - libreoffice-help-ru
-  - libreoffice-help-zh-cn
-  - libreoffice-help-zh-tw
-  - libreoffice-impress
-  - libreoffice-l10n-ar
-  - libreoffice-l10n-es
-  - libreoffice-l10n-fr
-  - libreoffice-l10n-it
-  - libreoffice-l10n-ja
-  - libreoffice-l10n-pt
-  - libreoffice-l10n-pt-br
-  - libreoffice-l10n-ru
-  - libreoffice-l10n-zh-cn
-  - libreoffice-l10n-zh-tw
-  - mlterm
-  - mlterm-tiny
-  - mozc-data
-  - mozc-server
-  - mozc-utils
-  - rhythmbox
-  - uim-mozc
-  - xiterm+thai
-  - xterm
 
 # flatpaks
 flatpaks:
   - com.github.tchx84.Flatseal
-  - com.wire.WireDesktop
-  - org.chromium.Chromium
-  - org.flathub.flatpak-external-data-checker
+  - com.bitwarden.desktop
+  - org.zotero.Zotero
+  - io.dbeaver.DBeaverCommunity
 
 # repos (ppa)
 ppa:
   - repo: "ppa:ubuntu-elisp/ppa"
-    codename: "impish"
+    codename: "jammy"
   - repo: "ppa:yubico/stable"
-    codename: "impish"
-  - repo: "ppa:fish-shell/release-3"
-    codename: "impish"
+    codename: "jammy"
   - repo: "ppa:papirus/papirus"
-    codename: "impish"
-  - repo: "ppa:flexiondotorg/quickemu"
-    codename: "impish"
+    codename: "jammy"
 
 # repos (non-ppa)
 non_ppa:
-  - filename: "zotero"
-    key_location: "https://downloads.sourceforge.net/project/zotero-deb/./deb.gpg.key"
-    repo: "deb [by-hash=force] https://downloads.sourceforge.net/project/zotero-deb ./"
   - filename: "signal"
     key_location: "https://updates.signal.org/desktop/apt/keys.asc"
     repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
   - filename: "docker"
     key_location: "https://download.docker.com/linux/ubuntu/gpg"
-    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu hirsute stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable"
   - filename: "element"
     key_location: "https://packages.element.io/debian/element-io-archive-keyring.gpg"
     repo: "deb https://packages.element.io/debian/ default main"
@@ -169,91 +64,11 @@ mullvad_account_number: !vault |
   65383965383730343033363739663061643639333230653764663239323663326262
 
 # fish > starship
-starship_url: "https://github.com/starship/starship/releases/download/v1.0.0/starship-x86_64-unknown-linux-gnu.tar.gz"
-starship_sha256sum: "8952efbcbdf8487273d7467caa3ff87b8917ba00fec1a083a36e9e04a6df5cd3"
+starship_url: "https://github.com/starship/starship/releases/download/v1.10.2/starship-x86_64-unknown-linux-gnu.tar.gz"
+starship_sha256sum: "253a62e48c1b15d5465c876560b71e1d3485697e22ab7adea85e37cbe1a70a54"
 
 # fish > fisher plugins
 fisher_plugins:
-  - jorgebucaran/fisher
-  - franciscolourenco/done
   - jethrokuan/z
-  - PatrickF1/fzf.fish
+  - jethrokuan/fzf
   - 2m/fish-history-merge
-  - acomagu/fish-async-prompt
-
-# asdf
-# asdf > plugins
-asdf_plugins:
-  - python https://github.com/danhper/asdf-python
-  - poetry https://github.com/asdf-community/asdf-poetry
-  - nodejs https://github.com/asdf-vm/asdf-nodejs
-  - golang https://github.com/kennyp/asdf-golang
-  - gohugo https://bitbucket.org/mgladdish/asdf-gohugo
-  - direnv https://github.com/asdf-community/asdf-direnv
-  - ctop https://github.com/neohsu/asdf-ctop.git
-
-# asdf > languages
-asdf_languages:
-  - name: "python"
-    version: "3.9.9"
-  - name: "golang"
-    version: "1.17"
-  - name: "poetry"
-    version: "latest"
-  - name: "direnv"
-    version: "latest"
-  - name: "ctop"
-    version: "latest"
-  - name: "gohugo"
-    version: "extended_0.88.1"
-  - name: "nodejs"
-    version: "lts"
-
-# gnome
-gnome_extensions:
-  - url: "https://extensions.gnome.org/extension/779/clipboard-indicator/"
-    state: "present"
-    installed: true
-  - url: "https://extensions.gnome.org/extension/841/freon/"
-    state: "present"
-    installed: true
-  - url: "https://extensions.gnome.org/extension/545/hide-top-bar/"
-    state: "present"
-    installed: true
-  - url: "https://extensions.gnome.org/extension/906/sound-output-device-chooser/"
-    state: "present"
-    installed: true
-  - url: "https://extensions.gnome.org/extension/3019/user-themes-x/"
-    state: "present"
-    installed: true
-  - url: "https://extensions.gnome.org/extension/3088/extension-list/"
-    state: "present"
-    installed: true
-
-# shares
-# shares > nfs
-nfs_version: 4
-nfs_mount_opts: rsize=8192,wsize=8192,timeo=14,intr
-nfs_share_mounts:
-  - path: /home/lino/Syno/audio
-    location: 192.168.178.11:/volume1/audio
-  - path: /home/lino/Syno/video
-    location: 192.168.178.11:/volume1/video
-  - path: /home/lino/Syno/photo
-    location: 192.168.178.11:/volume1/photo
-  - path: /home/lino/Syno/share
-    location: 192.168.178.11:/volume1/share
-  - path: /home/lino/Syno/borg
-    location: 192.168.178.11:/volume1/borg
-
-# shares > cifs
-smb_share_mounts:
-  - path: /home/lino/Syno/archive
-    location: //192.168.178.11/archive
-smb_share_password: !vault |
-  $ANSIBLE_VAULT;1.1;AES256
-  38393631623631393232343230353134643435663832333361373035363037633637646333386166
-  3133376166646530346338343331326439393436656264610a636338386631306532333034376239
-  65313833353431666338383661663030636333623831636632363661343966633734666662316236
-  3638636332343235640a376538636561353031643439393965333135616465366134303637333064
-  38376463326361663731666234356435353038656430613566313639303239616538

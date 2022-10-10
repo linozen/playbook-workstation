@@ -1,14 +1,4 @@
 ---
-- name: Set hostname
-  tags: [hostname]
-  hosts: all
-  vars_prompt:
-    - name: "input_hostname"
-      prompt: "What is the hostname of your new install?"
-
-  tasks:
-    - hostname:
-        name: "{{ input_hostname }}"
 
 - name: Install base packages via apt and flatpak
   tags: [pkgs, base, apt]
@@ -99,27 +89,6 @@
         state: started
         scope: user
 
-- name: Configure rootless Docker
-  tags: [docker, container-engine]
-  hosts: all
-  tasks:
-    - name: Disable rootful Docker daemon
-      become: true
-      service:
-        name: docker.service
-        enabled: false
-        state: stopped
-
-    - name: Disable rootful Docker socket
-      become: true
-      service:
-        name: docker.socket
-        enabled: false
-        state: stopped
-
-    - name: Install rootless Docker
-      shell: "dockerd-rootless-setuptool.sh install"
-
 - name: Install Mullvad VPN
   tags: [mullvad, vpn]
   hosts: all
@@ -150,26 +119,6 @@
     - name: Set Mullvad VPN account key
       become: true
       shell: "mullvad account set {{ mullvad_account_number }}"
-
-- name: Setup backups with Vorta
-  tags: [backup, vorta]
-  hosts: all
-  tasks:
-    - name: Let user stop Vorta
-      pause:
-        prompt: "Please quit Vorta if it's running"
-
-    - name: Remove Vorta settings db if it exists
-      file:
-        path: "~/.local/share/Vorta/settings.db"
-        state: "absent"
-
-    - name: Create a symbolic link to settings.db
-      file:
-        src: "{{ playbook_dir }}/files/vorta/settings.db"
-        dest: "~/.local/share/Vorta/settings.db"
-        state: link
-        force: true
 
 - name: Install and set up fish shell
   tags: [fish, shell]
@@ -214,40 +163,6 @@
       shell: "fish -c 'fisher install {{ item }}'"
       loop: "{{ fisher_plugins }}"
 
-- name: Setup asdf
-  tags: [asdf, languages]
-  hosts: all
-  tasks:
-    - name: Get asdf
-      become: false
-      git:
-        repo: https://github.com/asdf-vm/asdf.git
-        dest: "{{ ansible_env.HOME }}/.asdf"
-        depth: 1
-      ignore_errors: true
-
-    - name: Add asdf plugins
-      become: false
-      shell: "fish -c 'asdf plugin add {{ item }}'"
-      loop: "{{ asdf_plugins }}"
-      ignore_errors: true
-
-    - name: Add asdf plugins
-      become: false
-      shell: "fish -c 'asdf plugin add {{ item }}'"
-      loop: "{{ asdf_plugins }}"
-      ignore_errors: true
-
-    - name: Install languages with asdf
-      become: false
-      shell: "fish -c 'asdf install {{ item.name }} {{ item.version }}'"
-      loop: "{{ asdf_languages }}"
-
-    - name: Set global language version with asdf
-      become: false
-      shell: "fish -c 'asdf global {{ item.name }} {{ item.version }}'"
-      loop: "{{ asdf_languages }}"
-
 - name: Setup (Doom) Emacs
   tags: [emacs, doom, editor]
   hosts: all
@@ -257,9 +172,8 @@
         src: "{{ playbook_dir }}/files/fonts/{{ item }}"
         dest: "{{ ansible_env.HOME }}/.local/share/fonts"
       loop:
-        - "iosevka.tar.xz"
-        - "iosevka-aile.tar.xz"
-        - "inter.tar.xz"
+        - "Rubik.tar.xz"
+        - "Iosevka.tar.xz"
 
     - name: Refresh fonts cache
       tags: [fonts]
@@ -274,7 +188,7 @@
 
     - name: Clone private Doom Emacs configuration
       git:
-        repo: "git@github.com:linozen/doom.git"
+        repo: "https://git.sr.ht/~linozen/doom"
         dest: "~/.doom.d"
         force: true
         depth: 1
@@ -297,78 +211,3 @@
         enabled: true
         state: started
         scope: user
-
-- name: Setup and rice Gnome
-  tags: [gnome, de, gtk, rice]
-  hosts: all
-  tasks:
-    - name: Install Gnome extensions
-      vars:
-        gnome_user: "{{ ansible_env.USERNAME }}"
-      include_role:
-        name: ansible-role-gnome-extensions
-
-    - name: Install Gnome Dracula theme
-      git:
-        repo: "https://github.com/dracula/gtk.git"
-        dest: "~/.themes/Dracula"
-        force: true
-        depth: 1
-
-    - name: Sync dumped Gnome config files to host (/org/gnome/desktop/)
-      synchronize:
-        src: "{{ playbook_dir }}/files/gnome/{{ input_hostname }}-desktop.ini"
-        dest: "/tmp/"
-
-    - name: Sync dumped Gnome config files to host (/org/gnome/shell/)
-      synchronize:
-        src: "{{ playbook_dir }}/files/gnome/{{ input_hostname }}-shell.ini"
-        dest: "/tmp/"
-
-    - name: Sync wallpaper
-      synchronize:
-        src: "{{ playbook_dir }}/files/lights.png"
-        dest: "~/Pictures/lights.png"
-
-    - name: Load Gnome desktop settings from .ini
-      shell: "fish -c 'dconf load /org/gnome/desktop/ < /tmp/desktop.ini'"
-
-    - name: Load Gnome shell settings from .ini
-      shell: "fish -c 'dconf load /org/gnome/shell/ < /tmp/shell.ini'"
-
-    - name: Restart Gnome shell
-      shell: |
-        busctl --user call org.gnome.Shell \
-        /org/gnome/Shell org.gnome.Shell \
-        Eval s 'Meta.restart("Restarting…")'
-
-- name: Rice QT apps
-  tags: [qt5, qt, de, rice]
-  hosts: all
-  tasks:
-    - name: Symlink relevant config files to playbook-workstation
-      file:
-        src: "{{ playbook_dir }}/files/qt/{{ item.fname }}"
-        dest: "{{ ansible_env.HOME }}/{{ item.fpath }}/{{ item.fname }}"
-        state: link
-        force: true
-      loop:
-        - fname: qt5ct.conf
-          fpath: .config/qt5ct
-        - fname: Dracula.conf
-          fpath: .config/qt5ct/colors
-
-- name: Rice Element
-  tags: [rice, element]
-  hosts: all
-  tasks:
-    - name: Symlink relevant config files to playbook-workstation
-      file:
-        src: "{{ playbook_dir }}/files/element/{{ item.fname }}"
-        dest: "{{ ansible_env.HOME }}/{{ item.fpath }}/{{ item.fname }}"
-        state: link
-        force: true
-      loop:
-        - fname: config.json
-          fpath: .config/Element
-# TODO Mount shares
