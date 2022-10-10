@@ -9,19 +9,70 @@ pkgs_to_install:
   - docker-ce-cli
   - docker-compose-plugin
   - emacs28-nativecomp
+  - fish
   - gcc
   - gnome-tweaks
   - gnupg
+  - gnupg-agent
+  - gnupg2
+  - gparted
+  - gpg
   - gtimelog
   - isync
+  - libpam-luks
+  - libpam-u2f
   - libvterm-dev
   - lsb-release
   - maildir-utils
   - make
   - msmtp
   - mu4e
+  - nextcloud-desktop
+  - obs-studio
+  - openssh-server
   - papirus-icon-theme
+  - pcscd
+  - perl-tk
+  - scdaemon
   - tailscale
+  - texlive
+  - texlive-base
+  - texlive-bibtex-extra
+  - texlive-binaries
+  - texlive-extra-utils
+  - texlive-font-utils
+  - texlive-fonts-extra
+  - texlive-fonts-extra-doc
+  - texlive-fonts-recommended
+  - texlive-fonts-recommended-doc
+  - texlive-formats-extra
+  - texlive-humanities
+  - texlive-humanities-doc
+  - texlive-lang-english
+  - texlive-lang-german
+  - texlive-latex-base
+  - texlive-latex-base-doc
+  - texlive-latex-extra
+  - texlive-latex-extra-doc
+  - texlive-latex-recommended
+  - texlive-latex-recommended-doc
+  - texlive-luatex
+  - texlive-metapost
+  - texlive-metapost-doc
+  - texlive-pictures
+  - texlive-pictures-doc
+  - texlive-pstricks
+  - texlive-pstricks-doc
+  - texlive-publishers
+  - texlive-publishers-doc
+  - texlive-science
+  - texlive-science-doc
+  - texlive-xetex
+  - util-linux-user
+  - virtualbox
+  - vlc
+  - yubikey-manager
+  - yubikey-personalization
 
 # system packages to remove
 pkgs_to_remove:
