@@ -71,6 +71,7 @@ pkgs_to_install:
   - util-linux-user
   - virtualbox
   - vlc
+  - yubikey-agent
   - yubikey-manager
   - yubikey-personalization
 
