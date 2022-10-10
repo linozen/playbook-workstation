@@ -13,7 +13,7 @@ First, install a couple of essential packages:
 
 ```shell
 sudo apt-get update
-sudo apt-get install ansible
+sudo apt-get install gnupg2 git curl ansible
 ```
 
 ### Setup GnuPG

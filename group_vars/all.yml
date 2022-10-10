@@ -89,7 +89,7 @@ flatpaks:
 
 # repos (ppa)
 ppa:
-  - repo: "ppa:ubuntu-elisp/ppa"
+  - repo: "ppa:kelleyk/emacs"
     codename: "jammy"
   - repo: "ppa:yubico/stable"
     codename: "jammy"
