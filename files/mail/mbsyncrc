@@ -1,0 +1,24 @@
+IMAPAccount mailbox
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+Host imap.mailbox.org
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.mailpass/mailbox.gpg 2>/dev/null"
+Port 993
+SSLType IMAPS
+User linus@sehn.tech
+
+IMAPStore mailbox-remote
+Account mailbox
+
+MaildirStore mailbox-local
+Inbox /home/lino/Maildir/mailbox/Inbox
+Path /home/lino/Maildir/mailbox/
+SubFolders Verbatim
+
+Channel mailbox
+Create Both
+Expunge Both
+Far :mailbox-remote:
+Near :mailbox-local:
+Patterns *
+Remove None
+SyncState *
