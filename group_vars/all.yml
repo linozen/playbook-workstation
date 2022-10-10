@@ -21,6 +21,7 @@ pkgs_to_install:
   - msmtp
   - mu4e
   - papirus-icon-theme
+  - tailscale
 
 # system packages to remove
 pkgs_to_remove:
@@ -32,6 +33,7 @@ flatpaks:
   - com.bitwarden.desktop
   - org.zotero.Zotero
   - io.dbeaver.DBeaverCommunity
+  - net.ankiweb.Anki
 
 # repos (ppa)
 ppa:
@@ -44,6 +46,9 @@ ppa:
 
 # repos (non-ppa)
 non_ppa:
+  - filename: "tailscale"
+    key_location: "https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg"
+    repo: "deb https://pkgs.tailscale.com/stable/ubuntu jammy main"
   - filename: "signal"
     key_location: "https://updates.signal.org/desktop/apt/keys.asc"
     repo: "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main"
